@@ -1,8 +1,27 @@
 {
   "version": 2,
-  "dgSpecHash": "IH6o6oQSr+oXoWLQM2GkcIx0VUNYMk6wH0ItyxXUkuH+xtiHG+deF5djl6qW2EmHw1g0FxlvrngfvSViSppkqQ==",
-  "success": true,
-  "projectFilePath": "E:\\Git_Repo\\mine\\Project1\\OTS\\OTS.Data\\OTS.Data.csproj",
+  "dgSpecHash": "O9uYfe+o1Rk=",
+  "success": false,
+  "projectFilePath": "E:\\Git_Repo\\mine\\Project1\\src\\OTS.Data\\OTS.Data.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages' doesn't exist.",
+      "libraryId": "AutoMapper.Extensions.Microsoft.DependencyInjection"
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages' doesn't exist.",
+      "libraryId": "Microsoft.Extensions.Options"
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages' doesn't exist.",
+      "libraryId": "AutoMapper"
+    }
+  ]
 }
