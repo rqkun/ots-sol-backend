@@ -17,7 +17,6 @@ namespace OTS.Data.Entities
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
        
-        [Required]
         public bool IsDeleted { get; set; }
     }
 
@@ -31,7 +30,6 @@ namespace OTS.Data.Entities
 
         public string? Detail { get; set; }
         
-        [Required]
         public bool IsDeleted { get; set; }
     }
 
@@ -51,7 +49,6 @@ namespace OTS.Data.Entities
         [ForeignKey("QuestionId")]
         public virtual Question? Question { get; set; }
 
-        [Required]
         public bool IsDeleted { get; set; }
     }
 
@@ -71,7 +68,6 @@ namespace OTS.Data.Entities
 
         public bool IsCorrect { get; set; }
 
-        [Required]
         public bool IsDeleted { get; set; }
     }
 
@@ -92,7 +88,6 @@ namespace OTS.Data.Entities
 
         public double Score { get; set; }
 
-        [Required]
         public bool IsDeleted { get; set; }
     }
 
@@ -112,7 +107,6 @@ namespace OTS.Data.Entities
         [ForeignKey("AnswerId")]
         public virtual Answer? Answer { get; set; }
 
-        [Required]
         public bool IsDeleted { get; set; }
     }
 }
