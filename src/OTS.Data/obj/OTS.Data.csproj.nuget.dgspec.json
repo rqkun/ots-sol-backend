@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Git_Repo\\mine\\Project1\\src\\OTS.Data\\OTS.Data.csproj": {}
+    "C:\\Users\\minhd\\source\\repos\\ots-sol-backend\\src\\OTS.Data\\OTS.Data.csproj": {}
   },
   "projects": {
-    "E:\\Git_Repo\\mine\\Project1\\src\\OTS.Data\\OTS.Data.csproj": {
+    "C:\\Users\\minhd\\source\\repos\\ots-sol-backend\\src\\OTS.Data\\OTS.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Git_Repo\\mine\\Project1\\src\\OTS.Data\\OTS.Data.csproj",
+        "projectUniqueName": "C:\\Users\\minhd\\source\\repos\\ots-sol-backend\\src\\OTS.Data\\OTS.Data.csproj",
         "projectName": "OTS.Data",
-        "projectPath": "E:\\Git_Repo\\mine\\Project1\\src\\OTS.Data\\OTS.Data.csproj",
-        "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-        "outputPath": "E:\\Git_Repo\\mine\\Project1\\src\\OTS.Data\\obj\\",
+        "projectPath": "C:\\Users\\minhd\\source\\repos\\ots-sol-backend\\src\\OTS.Data\\OTS.Data.csproj",
+        "packagesPath": "C:\\Users\\minhd\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\minhd\\source\\repos\\ots-sol-backend\\src\\OTS.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\minhd\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
