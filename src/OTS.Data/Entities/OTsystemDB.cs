@@ -22,7 +22,7 @@ namespace OTS.Data.Entities
         public OTsystemDB(DbContextOptions<OTsystemDB> options, IConfiguration configuration)
         : base(options)
         {
-            //connStr = configuration.GetValue<string>("ConnectionStrings:DefaultConnection");
+            connStr = configuration.GetValue<string>("ConnectionStrings:DefaultConnection");
         }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -39,13 +39,13 @@ namespace OTS.Data.Entities
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
                 var tableName = entityType.GetTableName();
-                if (tableName.StartsWith("AspNet"))
+                if (tableName != null && tableName.StartsWith("AspNet"))
                 {
                     entityType.SetTableName(tableName[6..]);
                 }
             }
-            //modelBuilder.Entity<User>().Property(i => i.Id).HasColumnName("UserId");
-            //modelBuilder.Entity<Role>().Property(i => i.Id).HasColumnName("RoleId");
+            modelBuilder.Entity<User>().Property(i => i.Id).HasColumnName("UserId");
+            modelBuilder.Entity<Role>().Property(i => i.Id).HasColumnName("RoleId");
 
             //modelBuilder.Seed();
            

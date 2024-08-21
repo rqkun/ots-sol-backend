@@ -10,9 +10,9 @@ namespace OTS.Data.Entities
         [Key]
         public Guid TestId { get; set; }
 
-        //[Required]
-        //public Guid UserId { get; set; }
-        //[ForeignKey("UserId")]
+        [Required]
+        public Guid UserId { get; set; }
+        [ForeignKey("UserId")]
         
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -77,9 +77,9 @@ namespace OTS.Data.Entities
         [Key]
         public Guid SubmitId { get; set; }
 
-        //[Required]
-        //public Guid UserId { get; set; }
-        //[ForeignKey("UserId")]
+        [Required]
+        public Guid UserId { get; set; }
+        [ForeignKey("UserId")]
 
         [Required]
         public Guid TestId { get; set; }
