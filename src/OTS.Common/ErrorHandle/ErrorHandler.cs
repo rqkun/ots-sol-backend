@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Text.Json;
 
-namespace OTS.Common
+namespace OTS.Common.ErrorHandle
 {
     public class ErrorHandler
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OTS.Common
+namespace OTS.Common.ErrorHandle
 {
     public class AppException : Exception
     {
@@ -14,7 +14,7 @@ namespace OTS.Common
         public AppException(string message) : base(message) { }
 
         public AppException(string message, params object[] args)
-            : base(String.Format(CultureInfo.CurrentCulture, message, args))
+            : base(string.Format(CultureInfo.CurrentCulture, message, args))
         {
         }
     }
@@ -25,7 +25,7 @@ namespace OTS.Common
         public DuplicateException(string message) : base(message) { }
 
         public DuplicateException(string message, params object[] args)
-            : base(String.Format(CultureInfo.CurrentCulture, message, args))
+            : base(string.Format(CultureInfo.CurrentCulture, message, args))
         {
         }
     }
@@ -36,7 +36,7 @@ namespace OTS.Common
         public PasswordException(string message) : base(message) { }
 
         public PasswordException(string message, params object[] args)
-            : base(String.Format(CultureInfo.CurrentCulture, message, args))
+            : base(string.Format(CultureInfo.CurrentCulture, message, args))
         {
         }
     }
