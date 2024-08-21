@@ -10724,19 +10724,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ACER\\.nuget\\packages\\": {}
+    "C:\\Users\\minhd\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Git_Repo\\mine\\Project1\\src\\OTS.API\\OTS.API.csproj",
+      "projectUniqueName": "C:\\Users\\minhd\\source\\repos\\ots-sol-backend\\src\\OTS.API\\OTS.API.csproj",
       "projectName": "OTS.API",
-      "projectPath": "E:\\Git_Repo\\mine\\Project1\\src\\OTS.API\\OTS.API.csproj",
-      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-      "outputPath": "E:\\Git_Repo\\mine\\Project1\\src\\OTS.API\\obj\\",
+      "projectPath": "C:\\Users\\minhd\\source\\repos\\ots-sol-backend\\src\\OTS.API\\OTS.API.csproj",
+      "packagesPath": "C:\\Users\\minhd\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\minhd\\source\\repos\\ots-sol-backend\\src\\OTS.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\minhd\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
