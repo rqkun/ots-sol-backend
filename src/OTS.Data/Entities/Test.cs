@@ -13,6 +13,7 @@ namespace OTS.Data.Entities
         [Required]
         public Guid UserId { get; set; }
         [ForeignKey("UserId")]
+        public virtual User? User { get; set; }
         
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -80,6 +81,7 @@ namespace OTS.Data.Entities
         [Required]
         public Guid UserId { get; set; }
         [ForeignKey("UserId")]
+        public virtual User? User { get; set; }
 
         [Required]
         public Guid TestId { get; set; }
