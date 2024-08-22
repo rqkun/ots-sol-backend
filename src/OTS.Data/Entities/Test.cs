@@ -11,9 +11,10 @@ namespace OTS.Data.Entities
         public Guid TestId { get; set; }
 
         [Required]
-        public Guid UserId { get; set; }
+        [Column("CreatorId")]
+        public Guid CreatorId { get; set; }
         [ForeignKey("UserId")]
-        public virtual User? User { get; set; }
+        public virtual User? Creator { get; set; }
         
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
