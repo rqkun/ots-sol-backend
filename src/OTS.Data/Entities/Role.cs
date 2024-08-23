@@ -14,6 +14,6 @@ namespace OTS.Data.Entities
         public string? Description { get; set; }
     }
 
-    public class RoleCalim : IdentityRoleClaim<Guid>{ }
-    public class UserRole:IdentityUserRole<Guid> { }
+    public class RoleClaim : IdentityRoleClaim<Guid>{ }
+    public class UserRole : IdentityUserRole<Guid> { }
 }

@@ -61,7 +61,7 @@ namespace OTS.Data.Entities
         public Guid AnswerId { get; set;}
 
         [Required]
-        public int QuestionId { get;set; }
+        public Guid QuestionId { get;set; }
         [ForeignKey("QuestionId")]
         public virtual Question? Question { get; set; }
 
