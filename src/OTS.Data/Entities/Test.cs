@@ -11,8 +11,10 @@ namespace OTS.Data.Entities
         public Guid TestId { get; set; }
 
         [Required]
-        public Guid UserId { get; set; }
+        [Column("CreatorId")]
+        public Guid CreatorId { get; set; }
         [ForeignKey("UserId")]
+        public virtual User? Creator { get; set; }
         
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -67,45 +69,6 @@ namespace OTS.Data.Entities
         public string? AnswerDetail { get; set; }
 
         public bool IsCorrect { get; set; }
-
-        public bool IsDeleted { get; set; }
-    }
-
-    [Table("Submit")]
-    public class Submit
-    {
-        [Key]
-        public Guid SubmitId { get; set; }
-
-        [Required]
-        public Guid UserId { get; set; }
-        [ForeignKey("UserId")]
-
-        [Required]
-        public Guid TestId { get; set; }
-        [ForeignKey("TestId")]
-        public virtual Test? Tests { get; set; }
-
-        public double Score { get; set; }
-
-        public bool IsDeleted { get; set; }
-    }
-
-    [Table("SubmittedAnswer")]
-    public class SubmittedAnswer
-    {
-        [Key]
-        public Guid SubmittedAnswerId { get; set; }
-
-        [Required]
-        public Guid SubmitId { get; set; }
-        [ForeignKey("SubmitId")]
-        public virtual Submit? Submit { get; set; }
-
-        [Required]
-        public Guid AnswerId { get; set; }
-        [ForeignKey("AnswerId")]
-        public virtual Answer? Answer { get; set; }
 
         public bool IsDeleted { get; set; }
     }
