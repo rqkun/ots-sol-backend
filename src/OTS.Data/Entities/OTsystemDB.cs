@@ -16,7 +16,8 @@ namespace OTS.Data.Entities
         public OTsystemDB(DbContextOptions<OTsystemDB> options, IConfiguration configuration)
         : base(options)
         {
-            connStr = configuration.GetValue<string>("ConnectionStrings:DefaultConnection");
+            
+            var connStr = configuration.GetValue<string>("ConnectionStrings:DefaultConnection");
         }
         #region Test Dbsets
         public DbSet<Test> Tests { get; set; }
@@ -31,9 +32,9 @@ namespace OTS.Data.Entities
         #endregion
 
         #region Role Dbsets
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<RoleClaim> RoleClaims { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<RoleClaim> RoleClaim { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
         #endregion
 
         #region Blacklist Dbsets

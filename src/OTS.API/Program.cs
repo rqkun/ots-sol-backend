@@ -101,7 +101,9 @@ builder.Services.AddScoped<IUrlHelper>(x =>
 {
     var actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
     var factory = x.GetRequiredService<IUrlHelperFactory>();
-    return factory.GetUrlHelper(actionContext);
+    if (actionContext != null)
+        return factory.GetUrlHelper(actionContext);
+    else throw new Exception("URL_HELPER_ACTION_CONTEXT_ERROR");
 });
 builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
