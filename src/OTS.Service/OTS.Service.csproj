@@ -10,13 +10,15 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OTS.Common\OTS.Common.csproj" />
+    <ProjectReference Include="..\OTS.UnitTest\OTS.UnitTest.csproj" />
+	<ProjectReference Include="..\OTS.Data\OTS.Data.csproj" />
   </ItemGroup>
 
 </Project>

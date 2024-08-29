@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace OTS.Common.ErrorHandle
 {
-    internal class ErrorMessages
+    //internal class ErrorMessages
+    public class ErrorMessages
     {
         public static class ExceptionMessages
         {
@@ -33,6 +34,14 @@ namespace OTS.Common.ErrorHandle
             #region Role
             public const string DuplicateRoleName = "Role name is already exist.";
             #endregion
+        }
+
+        public static class KeyNotFoundMessage
+        {
+            #region User
+            public const string UserNotFound = "User does not exist.";
+            #endregion
+
         }
     }
 }

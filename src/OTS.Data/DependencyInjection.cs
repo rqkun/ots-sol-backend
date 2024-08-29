@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OTS.Data.Interfaces;
+using OTS.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,10 @@ namespace OTS.Data
     {
         public static IServiceCollection AddRepository(this IServiceCollection service)
         {
-            //service.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
+            service.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
+            service.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            service.AddTransient<IUserRelatedRepository, UserRelatedRepository>();
+            service.AddTransient<ITestRelatedRepository, TestRelatedRepository>();
 
             return service;
         }

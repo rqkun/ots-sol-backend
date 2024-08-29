@@ -1,16 +1,15 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using OTS.Data;
-using OTS.Service;
-using OTS.Data.Entities;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
+using OTS.Common.ErrorHandle;
+using OTS.Data;
+using OTS.Data.Entities;
+using OTS.Service;
+using OTS.Service.Interfaces;
+using OTS.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -57,7 +56,7 @@ builder.Services.AddSwaggerGen();
     });
 
 });
- */
+*/
 
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<OTsystemDB>().AddDefaultTokenProviders();
@@ -71,7 +70,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.Al
 
 builder.Services.AddAutoMapper(typeof(Program));
 
-//builder.Services.AddScoped<IUserRepository, UserRepository>();
+// builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 /*
 builder.Services.AddAuthentication(options => {
@@ -119,14 +118,15 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.SignIn.RequireConfirmedEmail = true;
 });
 
+// Register the Service
+builder.Services.AddScoped<ITestRelatedService, TestRelatedService>();
+
 
 var app = builder.Build();
 
-app.UseAuthentication();
-app.UseAuthorization();
-app.UseCors(option => option.WithOrigins("http://localhost:3000")
-        .AllowAnyMethod()
-        .AllowAnyHeader());
+//app.UseCors(option => option.WithOrigins("http://localhost:3000")
+//        .AllowAnyMethod()
+//        .AllowAnyHeader());
 
 
 // Configure the HTTP request pipeline.
@@ -135,6 +135,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<ErrorHandler>();
+app.UseRouting();
 
 app.UseHttpsRedirection();
 
