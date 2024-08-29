@@ -4,7 +4,7 @@ using OTS.Data.Entities;
 
 namespace OTS.Data.Interfaces
 {
-    public interface ITestRelatedRepository
+    public interface ITestRepository
     {
         Task<bool> Create(TestCreateModel request);
     }

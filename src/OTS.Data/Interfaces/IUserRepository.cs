@@ -11,5 +11,6 @@ namespace OTS.Data.Interfaces
     public interface IUserRepository
     {
         Task<IdentityResult> SignUp(SignUpModel req);
+        Task<UserModel> GetById(Guid request);
     }
 }

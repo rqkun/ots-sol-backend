@@ -6,11 +6,11 @@ using OTS.Service.Interfaces;
 
 namespace OTS.Service.Services
 {
-    public class TestRelatedService : ITestRelatedService
+    public class TestService : ITestService
     {
-        private readonly ITestRelatedRepository _testRelatedRepository;
-        private readonly IUserRelatedRepository _userRelatedRepository;
-        public TestRelatedService(ITestRelatedRepository testRelatedRepository, IUserRelatedRepository userRelatedRepository)
+        private readonly ITestRepository _testRelatedRepository;
+        private readonly IUserRepository _userRelatedRepository;
+        public TestService(ITestRepository testRelatedRepository, IUserRepository userRelatedRepository)
         {
             _testRelatedRepository = testRelatedRepository;
             _userRelatedRepository = userRelatedRepository;

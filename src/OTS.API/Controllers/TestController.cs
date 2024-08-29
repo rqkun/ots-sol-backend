@@ -29,8 +29,8 @@ namespace OTS.API.Controllers
     [Route("[controller]")]
     public class TestController : ControllerBase
     {
-        private readonly ITestRelatedService _testRelatedService;
-        public TestController(ITestRelatedService testRelatedService)
+        private readonly ITestService _testRelatedService;
+        public TestController(ITestService testRelatedService)
         {
             this._testRelatedService = testRelatedService;
         }

@@ -14,7 +14,7 @@ namespace OTS.Service
         public static IServiceCollection AddServices(this IServiceCollection service)
         {
             //service.AddTransient<IUserAccountService, UserAccountService>();
-            service.AddTransient<ITestRelatedService, TestRelatedService>();
+            service.AddTransient<ITestService, TestService>();
             return service;
         }
     }

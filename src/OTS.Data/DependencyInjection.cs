@@ -15,8 +15,8 @@ namespace OTS.Data
         {
             service.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
             service.AddTransient(typeof(IRepository<>), typeof(Repository<>));
-            service.AddTransient<IUserRelatedRepository, UserRelatedRepository>();
-            service.AddTransient<ITestRelatedRepository, TestRelatedRepository>();
+            service.AddTransient<IUserRepository, UserRepository>();
+            service.AddTransient<ITestRepository, TestRepository>();
 
             return service;
         }

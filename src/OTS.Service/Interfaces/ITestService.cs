@@ -5,7 +5,7 @@ using OTS.Service.Interfaces;
 
 namespace OTS.Service.Interfaces
 {
-    public interface ITestRelatedService
+    public interface ITestService
     {
         public Task<bool> Create(TestCreateModel request);
     }

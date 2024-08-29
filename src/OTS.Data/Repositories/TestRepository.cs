@@ -15,12 +15,12 @@ using OTS.Data.ViewModels;
 
 namespace OTS.Data.Repositories
 {
-    public  class TestRelatedRepository : Repository<Test>, ITestRelatedRepository
+    public  class TestRepository : Repository<Test>, ITestRepository
     {
         //private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
         protected readonly OTsystemDB _dbContext;
-        public TestRelatedRepository(OTsystemDB dbContext, /*UnitOfWork uow,*/ IMapper mapper) : base(dbContext)
+        public TestRepository(OTsystemDB dbContext, /*UnitOfWork uow,*/ IMapper mapper) : base(dbContext)
         {
             //this._uow = uow;
             this._mapper = mapper;
