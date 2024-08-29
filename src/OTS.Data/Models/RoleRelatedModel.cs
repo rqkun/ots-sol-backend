@@ -26,6 +26,6 @@ namespace OTS.Data.Models
 
     public class UserRolesUpdateModel
     {
-        public IEnumerable<Guid> RoleId { get; set; }
+        public IEnumerable<Guid> RoleId { get; set; } = Enumerable.Empty<Guid>();
     }
 }

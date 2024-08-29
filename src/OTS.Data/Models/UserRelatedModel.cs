@@ -52,10 +52,10 @@ namespace OTS.Data.Models
     public class ResetPasswordModel
     {
         [Required]
-        public string Email { get; set; }
+        public string Email { get; set; } = "";
         [Required]
-        public string NewPassword { get; set; }
+        public string NewPassword { get; set; } = "";
         [Required]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; } = "";
     }
 }
