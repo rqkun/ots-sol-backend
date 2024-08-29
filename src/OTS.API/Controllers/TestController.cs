@@ -29,16 +29,16 @@ namespace OTS.API.Controllers
     [Route("[controller]")]
     public class TestController : ControllerBase
     {
-        private readonly ITestService _testRelatedService;
-        public TestController(ITestService testRelatedService)
+        private readonly ITestService _testService;
+        public TestController(ITestService testService)
         {
-            this._testRelatedService = testRelatedService;
+            this._testService = testService;
         }
 
         [HttpPost("[action]")]
         public async Task<IActionResult> Create(TestCreateModel request)
         {
-            var result = await this._testRelatedService.Create(request);
+            var result = await this._testService.Create(request);
             return Ok(result);
         }
     }

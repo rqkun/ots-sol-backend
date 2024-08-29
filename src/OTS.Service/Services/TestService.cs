@@ -8,19 +8,19 @@ namespace OTS.Service.Services
 {
     public class TestService : ITestService
     {
-        private readonly ITestRepository _testRelatedRepository;
-        private readonly IUserRepository _userRelatedRepository;
-        public TestService(ITestRepository testRelatedRepository, IUserRepository userRelatedRepository)
+        private readonly ITestRepository _testRepository;
+        private readonly IUserRepository _userRepository;
+        public TestService(ITestRepository testRepository, IUserRepository userRepository)
         {
-            _testRelatedRepository = testRelatedRepository;
-            _userRelatedRepository = userRelatedRepository;
+            _testRepository = testRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<bool> Create(TestCreateModel request)
         {
-            _ = await _userRelatedRepository.GetById(request.CreatorId);
+            _ = await _userRepository.GetById(request.CreatorId);
             request.CreateDate = DateTime.Now;
-            await _testRelatedRepository.Create(request);
+            await _testRepository.Create(request);
             return await Task.FromResult(true);
         }
     }
