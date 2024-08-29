@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using OTS.Service.Interfaces;
+using OTS.Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,7 @@ namespace OTS.Service
         public static IServiceCollection AddServices(this IServiceCollection service)
         {
             //service.AddTransient<IUserAccountService, UserAccountService>();
+            service.AddTransient<ITestRelatedService, TestRelatedService>();
             return service;
         }
     }

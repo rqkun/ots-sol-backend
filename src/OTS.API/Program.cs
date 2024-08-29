@@ -119,7 +119,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 // Register the Service
-builder.Services.AddScoped<ITestRelatedService, TestRelatedService>();
+//builder.Services
 
 
 var app = builder.Build();
