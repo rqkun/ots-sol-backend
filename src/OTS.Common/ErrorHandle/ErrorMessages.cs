@@ -40,6 +40,7 @@ namespace OTS.Common.ErrorHandle
         {
             #region User
             public const string UserNotFound = "User does not exist.";
+            public const string TestNotFound = "Test does not exist.";
             #endregion
 
         }

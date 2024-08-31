@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using OTS.Data.Models;
 using OTS.Data.Entities;
+using OTS.Data.ViewModels;
 
 namespace OTS.Data
 {
@@ -19,6 +20,18 @@ namespace OTS.Data
         {
             #region Test
             CreateMap<TestCreateModel, Test>();
+            CreateMap<TestUpdateModel, Test>();
+            CreateMap<TestModel, Test>();
+
+            CreateMap<Test, TestViewModel>()
+                .ForMember(destination => destination.TestId,
+                    option => option.MapFrom(source => source.TestId))
+                .ForMember(destination => destination.CreatorId,
+                    option => option.MapFrom(source => source.CreatorId))
+                .ForMember(destination => destination.CreateDate,
+                    option => option.MapFrom(source => source.CreateDate))
+                .ForMember(destination => destination.EndDate,
+                    option => option.MapFrom(source => source.EndDate));
 
             #endregion
 

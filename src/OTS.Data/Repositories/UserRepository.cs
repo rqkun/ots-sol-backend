@@ -35,7 +35,7 @@ namespace OTS.Data.Repositories
         }
         public async Task<UserModel> GetById(Guid request)
         {
-            var foundUser = await Entities.FirstOrDefaultAsync(u => u.Id == request) ??
+            var foundUser = await Entities.Where(u => u.IsDeleted == false).FirstOrDefaultAsync(u => u.Id == request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.UserNotFound);
             try
             {
