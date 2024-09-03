@@ -28,6 +28,21 @@ namespace OTS.Data.Repositories
             this._dbContext = dbContext;
         }
 
+        public async Task<Test> GetEntity(Guid id)
+        {
+            var foundEntity = await Entities.FirstOrDefaultAsync(t => t.TestId == id) ??
+                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
+            try
+            {
+                return await Task.FromResult<Test>(foundEntity); // Return true if the operation succeeds
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception as needed
+                throw new Exception(ex.Message); // Return error message
+            }
+        }
+
         public async Task<TestViewModel> GetById(Guid request)
         {
             var foundTest = await Entities.Where(t => t.IsDeleted == false).FirstOrDefaultAsync(t => t.TestId == request) ??
@@ -44,7 +59,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<ICollection<TestViewModel>> GetAll()
+        public new async Task<ICollection<TestViewModel>> GetAll()
         {
             var foundTests = await this.GetAll() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
@@ -87,6 +102,8 @@ namespace OTS.Data.Repositories
 
         public async Task<bool> Update(TestUpdateModel request)
         {
+            var foundTest = await Entities.Where(t => t.IsDeleted == false).FirstOrDefaultAsync(t => t.TestId == request.TestId) ??
+                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
             {
                 var updateTest = _mapper.Map<Test>(request);
@@ -103,11 +120,14 @@ namespace OTS.Data.Repositories
 
         public async Task<bool> Delete(TestModel request)
         {
+            var foundTest = await Entities.Where(t => t.IsDeleted == false).FirstOrDefaultAsync(t => t.TestId == request.TestId) ??
+                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
             {
-                var deleteTest = _mapper.Map<Test>(request);
+                var deleteTest = _mapper.Map<Test>(foundTest);
+                deleteTest.IsDeleted = true;
 
-                this.Remove(deleteTest);
+                await this.Update(deleteTest);
                 return await Task.FromResult(true); // Return true if the operation succeeds
             }
             catch (Exception ex)

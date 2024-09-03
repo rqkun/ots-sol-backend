@@ -18,7 +18,7 @@ namespace OTS.Data.Entities
         
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
-       
+
         public bool IsDeleted { get; set; }
     }
 

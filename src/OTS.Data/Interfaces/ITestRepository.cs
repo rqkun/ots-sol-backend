@@ -11,6 +11,5 @@ namespace OTS.Data.Interfaces
         Task<bool> Create(TestCreateModel request);
         Task<bool> Update(TestUpdateModel request);
         Task<bool> Delete(TestModel request);
-
     }
 }

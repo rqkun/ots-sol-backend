@@ -129,6 +129,7 @@ namespace OTS.Data.Entities
             .Property(u => u.IsActive)
             .HasDefaultValue(true);
             #endregion
+
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
