@@ -1,15 +1,20 @@
 ﻿using OTS.Data.Models;
 using OTS.Data.ViewModels;
-using OTS.Data.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace OTS.Data.Interfaces
+namespace OTS.Service.Interfaces
 {
-    public interface IQuestionRepository
+    public interface IQuestionService
     {
         Task<QuestionViewModel> GetById(Guid request);
         Task<ICollection<QuestionViewModel>> GetAll();
         Task<bool> Create(QuestionCreateModel request);
         Task<bool> Update(QuestionUpdateModel request);
         Task<bool> Delete(QuestionModel request);
+        Task<bool> AddToTest(QuestionForTestCreateModel request);
     }
 }

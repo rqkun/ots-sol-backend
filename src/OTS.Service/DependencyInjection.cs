@@ -15,6 +15,9 @@ namespace OTS.Service
         {
             //service.AddTransient<IUserAccountService, UserAccountService>();
             service.AddTransient<ITestService, TestService>();
+            service.AddTransient<IAnswerService, AnswerService>();
+            service.AddTransient<IQuestionForTestService, QuestionForTestService>();
+            service.AddTransient<IQuestionService, QuestionService>();
             return service;
         }
     }

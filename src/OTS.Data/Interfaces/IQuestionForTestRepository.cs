@@ -4,7 +4,7 @@ using OTS.Data.Entities;
 
 namespace OTS.Data.Interfaces
 {
-    internal interface IQuestionForTestRepository
+    public interface IQuestionForTestRepository
     {
         Task<QuestionForTestViewModel> GetById(Guid request);
         Task<ICollection<QuestionForTestViewModel>> GetAll();

@@ -1,10 +1,14 @@
 ﻿using OTS.Data.Models;
 using OTS.Data.ViewModels;
-using OTS.Data.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace OTS.Data.Interfaces
+namespace OTS.Service.Interfaces
 {
-    public interface IAnswerRepository
+    public interface IAnswerService
     {
         Task<AnswerViewModel> GetById(Guid request);
         Task<ICollection<AnswerViewModel>> GetAll();
