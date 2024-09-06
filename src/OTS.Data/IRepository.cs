@@ -20,7 +20,7 @@ namespace OTS.Data
 
         Task Update(IEnumerable<TEntity> entities);
 
-        void Remove(int id);
+        void Remove(object id);
 
         void Remove(TEntity entity);
 

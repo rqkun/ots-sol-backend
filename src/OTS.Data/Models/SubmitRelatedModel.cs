@@ -27,4 +27,5 @@
         public Guid SubmitId { get; set; }
         public Guid AnswerId { get; set; }
     }
+
 }

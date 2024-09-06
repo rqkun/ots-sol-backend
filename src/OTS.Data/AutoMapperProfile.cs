@@ -36,6 +36,16 @@ namespace OTS.Data
                     option => option.MapFrom(source => source.AvatarSeed));
 
             #endregion
+
+            #region Submit
+            CreateMap<Submit, SubmitModel>();
+            CreateMap<SubmitModel, Submit>();
+            #endregion
+
+            #region Blacklist
+            CreateMap<BlacklistModel, Blacklist>();
+            CreateMap<Blacklist, BlacklistModel>();
+            #endregion
         }
     }
 }
