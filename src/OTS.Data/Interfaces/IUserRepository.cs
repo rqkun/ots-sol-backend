@@ -11,6 +11,11 @@ namespace OTS.Data.Interfaces
     public interface IUserRepository
     {
         Task<IdentityResult> SignUp(SignUpModel req);
-        Task<UserModel> GetById(Guid request);
+        Task<UserModel> Get(Guid request);
+        Task<UserModel> Get(string request);
+        Task<IEnumerable<UserModel>> GetAll(FilterModel filter);
+        Task<bool> ChangePassword(ChangePasswordModel model);
+        Task<bool> ResetPassword(ResetPasswordModel model);
+        Task<IdentityResult> SignUp(SignUpModel req);
     }
 }

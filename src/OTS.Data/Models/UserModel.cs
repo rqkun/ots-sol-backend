@@ -55,6 +55,19 @@ namespace OTS.Data.Models
         [Required]
         public string Email { get; set; } = "";
         [Required]
+        public string Token { get; set; } = "";
+        [Required]
+        public string NewPassword { get; set; } = "";
+        [Required]
+        public string ConfirmPassword { get; set; } = "";
+    }
+    public class ChangePasswordModel
+    {
+        [Required]
+        public string Email { get; set; } = "";
+        [Required]
+        public string OldPassword { get; set; } = "";
+        [Required]
         public string NewPassword { get; set; } = "";
         [Required]
         public string ConfirmPassword { get; set; } = "";
