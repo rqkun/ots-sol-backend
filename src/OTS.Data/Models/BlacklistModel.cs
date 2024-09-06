@@ -21,6 +21,7 @@ namespace OTS.Data.Models
     }
     public class BlacklistUpdateModel
     {
+        public Guid BlacklistId { get; set; }
         public string? Reason { get; set; }
         public bool? IsActive { get; set; }
     }
