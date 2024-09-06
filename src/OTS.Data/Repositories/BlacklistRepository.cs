@@ -42,7 +42,7 @@ namespace OTS.Data.Repositories
             return await Task.FromResult(model);
         }
 
-        public async Task<IEnumerable<BlacklistModel>> Get()
+        public async Task<IEnumerable<BlacklistModel>> GetAll(FilterModel filter)
         {
             var list = this.GetAll();
             IEnumerable<BlacklistModel> modelList = [];
