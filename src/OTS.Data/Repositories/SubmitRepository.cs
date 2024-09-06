@@ -36,7 +36,7 @@ namespace OTS.Data.Repositories
             SubmitModel submitFound = _mapper.Map<SubmitModel>(submit);
             return await Task.FromResult(submitFound);
         }
-        public async Task<IEnumerable<SubmitModel>> Get()
+        public async Task<IEnumerable<SubmitModel>> GetAll(FilterModel filter)
         { 
             var list = this.GetAll();
             IEnumerable<SubmitModel> modelList = [];

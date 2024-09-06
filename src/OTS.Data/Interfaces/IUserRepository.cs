@@ -16,6 +16,5 @@ namespace OTS.Data.Interfaces
         Task<IEnumerable<UserModel>> GetAll(FilterModel filter);
         Task<bool> ChangePassword(ChangePasswordModel model);
         Task<bool> ResetPassword(ResetPasswordModel model);
-        Task<IdentityResult> SignUp(SignUpModel req);
     }
 }
