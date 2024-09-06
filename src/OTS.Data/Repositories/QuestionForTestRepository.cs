@@ -56,6 +56,22 @@ namespace OTS.Data.Repositories
             }
         }
 
+        public async Task<QuestionForTestModel> GetByQuestionAndTestId(Guid questionId, Guid testId)
+        {
+            var foundQFT = await Entities.Where(qft => qft.IsDeleted == false).FirstOrDefaultAsync(qft => qft.QuestionId == questionId && qft.TestId == testId) ??
+                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionForTestNotFound);
+            try
+            {
+                var qft = _mapper.Map<QuestionForTestModel>(foundQFT);
+                return await Task.FromResult<QuestionForTestModel>(qft); // Return true if the operation succeeds
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception as needed
+                throw new Exception(ex.Message); // Return error message
+            }
+        }
+
         public new async Task<ICollection<QuestionForTestViewModel>> GetAll()
         {
             var foundQFTs = await this.GetAll() ??

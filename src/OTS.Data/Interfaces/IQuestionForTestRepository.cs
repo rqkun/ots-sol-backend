@@ -7,6 +7,7 @@ namespace OTS.Data.Interfaces
     public interface IQuestionForTestRepository
     {
         Task<QuestionForTestViewModel> GetById(Guid request);
+        Task<QuestionForTestModel> GetByQuestionAndTestId(Guid questionId, Guid testId);
         Task<ICollection<QuestionForTestViewModel>> GetAll();
         Task<bool> Create(QuestionForTestCreateModel request);
         Task<bool> Update(QuestionForTestModel request);

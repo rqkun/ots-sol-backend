@@ -58,5 +58,14 @@ namespace OTS.Service.Services
             await _questionForTestRepository.Create(request);
             return await Task.FromResult(true);
         }
+
+        public async Task<bool> DeleteFromTest(QuestionForTestModel request)
+        {
+            _ = await _testRepository.GetById(request.TestId);
+            _ = await _questionRepository.GetById(request.QuestionId);
+            var foundQFT = await _questionForTestRepository.GetByQuestionAndTestId(request.QuestionId, request.TestId);
+            await _questionForTestRepository.Delete(foundQFT);
+            return await Task.FromResult(true);
+        }
     }
 }
