@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
+using OTS.Common.ErrorHandle;
 using OTS.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -42,10 +44,12 @@ namespace OTS.Data
 
         public TEntity GetById(object id)
         {
-            throw new NotImplementedException();
+            var found = Entities.Find(id) ??
+                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.UserNotFound);
+            return found;
         }
 
-        public void Remove(int id)
+        public void Remove(object id)
         {
             var entity = GetById(id);
             if (entity == null)

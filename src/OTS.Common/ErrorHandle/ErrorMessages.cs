@@ -38,9 +38,9 @@ namespace OTS.Common.ErrorHandle
 
         public static class KeyNotFoundMessage
         {
-            #region User
             public const string UserNotFound = "User does not exist.";
-            #endregion
+            public const string SubmitNotFound = "Submit does not exist.";
+            public const string BlacklistNotFound = "Blacklist entry does not exist.";
 
             #region Test
             public const string TestNotFound = "Test does not exist.";

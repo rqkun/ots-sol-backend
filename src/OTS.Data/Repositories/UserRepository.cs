@@ -35,9 +35,7 @@ namespace OTS.Data.Repositories
         }
         public async Task<UserModel> GetById(Guid request)
         {
-            //var foundUser = await Entities.Where(u => u.IsDeleted == false).FirstOrDefaultAsync(u => u.Id == request) ??
-            //    throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.UserNotFound);
-            var foundUser = await _userManager.Users.Where(u => u.IsDeleted == false).FirstOrDefaultAsync(u => u.Id == request) ??
+            var foundUser = await this.GetById(request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.UserNotFound);
             try
             {
@@ -71,5 +69,6 @@ namespace OTS.Data.Repositories
             };
             return await _userManager.CreateAsync(user, req.Password);
         }
+        
     }
 }
