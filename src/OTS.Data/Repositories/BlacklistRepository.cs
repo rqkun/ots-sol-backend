@@ -42,10 +42,10 @@ namespace OTS.Data.Repositories
             return await Task.FromResult(model);
         }
 
-        public async Task<IEnumerable<BlacklistModel>> GetAll(FilterModel filter)
+        public async Task<ICollection<BlacklistModel>> GetAll(FilterModel filter)
         {
             var list = this.GetAll();
-            IEnumerable<BlacklistModel> modelList = [];
+            ICollection<BlacklistModel> modelList = [];
             foreach (var item in list)
             {
                 BlacklistModel submitModel = _mapper.Map<BlacklistModel>(item);

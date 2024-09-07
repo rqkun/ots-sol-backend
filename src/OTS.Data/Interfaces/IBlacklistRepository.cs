@@ -11,7 +11,7 @@ namespace OTS.Data.Interfaces
     {
         Task<bool> Create(CreateBlackListModel model);
         Task<BlacklistModel> Get(Guid id);
-        Task<IEnumerable<BlacklistModel>> GetAll(FilterModel filter);
+        Task<ICollection<BlacklistModel>> GetAll(FilterModel filter);
         Task<bool> Update(BlacklistUpdateModel model);
         Task<bool> Delete(Guid id);
     }
