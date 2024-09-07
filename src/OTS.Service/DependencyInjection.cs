@@ -13,7 +13,7 @@ namespace OTS.Service
     {
         public static IServiceCollection AddServices(this IServiceCollection service)
         {
-            //service.AddTransient<IUserAccountService, UserAccountService>();
+            service.AddTransient<IUserService, UserService>();
             service.AddTransient<ITestService, TestService>();
             return service;
         }

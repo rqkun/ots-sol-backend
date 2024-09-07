@@ -36,10 +36,10 @@ namespace OTS.Data.Repositories
             SubmitModel submitFound = _mapper.Map<SubmitModel>(submit);
             return await Task.FromResult(submitFound);
         }
-        public async Task<IEnumerable<SubmitModel>> Get()
+        public async Task<ICollection<SubmitModel>> GetAll(FilterModel filter)
         { 
             var list = this.GetAll();
-            IEnumerable<SubmitModel> modelList = [];
+            ICollection<SubmitModel> modelList = [];
             foreach (var item in list)
             {
                 SubmitModel submitModel = _mapper.Map<SubmitModel>(item);
@@ -53,9 +53,9 @@ namespace OTS.Data.Repositories
             this.Remove(submit);
             return await Task<bool>.FromResult(true);
         }
-        public async Task<bool> Delete(IEnumerable<Guid> idList)
+        public async Task<bool> Delete(ICollection<Guid> idList)
         {
-            IEnumerable<Submit> entityList = [];
+            ICollection<Submit> entityList = [];
             foreach (var id in idList)
             {
                 var submit = this.GetById(id) ?? throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.SubmitNotFound);
