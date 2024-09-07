@@ -61,18 +61,15 @@ namespace OTS.Data.Repositories
 
         public new async Task<ICollection<TestViewModel>> GetAll()
         {
-            var foundTests = await this.GetAll() ??
+            var foundTests = await Entities.Where(t => t.IsDeleted == false).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
             {
                 var testList = new List<TestViewModel>();
                 foreach (var test in foundTests)
                 { 
-                    if (test.IsDeleted == false)
-                    {
-                        var obj = _mapper.Map<TestViewModel>(test);
-                        testList.Add(obj);
-                    }
+                    var obj = _mapper.Map<TestViewModel>(test);
+                    testList.Add(obj);
                 }
                 return await Task.FromResult(testList); // Return true if the operation succeeds
             }
@@ -88,7 +85,7 @@ namespace OTS.Data.Repositories
             try
             {
                 var newTest = _mapper.Map<Test>(request);
-                newTest.TestId = Guid.NewGuid();
+                //newTest.TestId = Guid.NewGuid();
 
                 await this.Add(newTest);
                 return await Task.FromResult(true); // Return true if the operation succeeds

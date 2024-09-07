@@ -30,7 +30,7 @@ namespace OTS.Service.Services
         }
         public async Task<bool> Create(TestCreateModel request)
         {
-            _ = await _userRepository.GetById(request.CreatorId);
+            var creator = await _userRepository.GetById(request.CreatorId);
             request.CreateDate = DateTime.Now;
             await _testRepository.Create(request);
             return await Task.FromResult(true);

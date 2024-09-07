@@ -58,18 +58,15 @@ namespace OTS.Data.Repositories
 
         public new async Task<ICollection<AnswerViewModel>> GetAll()
         {
-            var foundAnswers = await this.GetAll() ??
+            var foundAnswers = await Entities.Where(a => a.IsDeleted == false).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.AnswerNotFound);
             try
             {
                 var answerList = new List<AnswerViewModel>();
                 foreach (var answer in foundAnswers)
                 {
-                    if (answer.IsDeleted == false)
-                    {
-                        var obj = _mapper.Map<AnswerViewModel>(answer);
-                        answerList.Add(obj);
-                    }
+                    var obj = _mapper.Map<AnswerViewModel>(answer);
+                    answerList.Add(obj);
                 }
                 return await Task.FromResult(answerList); // Return true if the operation succeeds
             }

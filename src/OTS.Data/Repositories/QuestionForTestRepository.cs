@@ -74,18 +74,15 @@ namespace OTS.Data.Repositories
 
         public new async Task<ICollection<QuestionForTestViewModel>> GetAll()
         {
-            var foundQFTs = await this.GetAll() ??
+            var foundQFTs = await Entities.Where(qft => qft.IsDeleted == false).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionForTestNotFound);
             try
             {
                 var qftList = new List<QuestionForTestViewModel>();
                 foreach (var qft in foundQFTs)
                 {
-                    if (qft.IsDeleted == false)
-                    {
-                        var obj = _mapper.Map<QuestionForTestViewModel>(qft);
-                        qftList.Add(obj);
-                    }
+                    var obj = _mapper.Map<QuestionForTestViewModel>(qft);
+                    qftList.Add(obj);
                 }
                 return await Task.FromResult(qftList); // Return true if the operation succeeds
             }
