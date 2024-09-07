@@ -65,10 +65,10 @@ namespace OTS.Data.Repositories
                 throw new Exception(ex.Message); // Return error message
             }
         }
-        public async Task<IEnumerable<UserModel>> GetAll(FilterModel filter)
+        public async Task<ICollection<UserModel>> GetAll(FilterModel filter)
         {
             var list = this.GetAll();
-            IEnumerable<UserModel> modelList = [];
+            ICollection<UserModel> modelList = [];
             foreach (var item in list)
             {
                 UserModel submitModel = _mapper.Map<UserModel>(item);
@@ -123,12 +123,7 @@ namespace OTS.Data.Repositories
                 throw new Exception("Account existed.");
             }
 
-            var user = new User
-            {
-                AvatarSeed = req.AvatarSeed,
-                Email = req.Email,
-                UserName = req.Email,
-            };
+            var user = _mapper.Map<User>(req);
             return await _userManager.CreateAsync(user, req.Password);
         }
 

@@ -11,8 +11,8 @@ namespace OTS.Data.Interfaces
     {
         Task<bool> Create(SubmitCreateModel model);
         Task<SubmitModel> Get(Guid id);
-        Task<IEnumerable<SubmitModel>> GetAll(FilterModel filter);
+        Task<ICollection<SubmitModel>> GetAll(FilterModel filter);
         Task<bool> Delete(Guid id);
-        Task<bool> Delete(IEnumerable<Guid> idList);
+        Task<bool> Delete(ICollection<Guid> idList);
     }
 }

@@ -13,7 +13,7 @@ namespace OTS.Data.Interfaces
         Task<IdentityResult> SignUp(SignUpModel req);
         Task<UserModel> Get(Guid request);
         Task<UserModel> Get(string request);
-        Task<IEnumerable<UserModel>> GetAll(FilterModel filter);
+        Task<ICollection<UserModel>> GetAll(FilterModel filter);
         Task<bool> ChangePassword(ChangePasswordModel model);
         Task<bool> ResetPassword(ResetPasswordModel model);
     }
