@@ -41,6 +41,7 @@ namespace OTS.Common.ErrorHandle
             public const string UserNotFound = "User does not exist.";
             public const string SubmitNotFound = "Submit does not exist.";
             public const string BlacklistNotFound = "Blacklist entry does not exist.";
+            public const string RoleNotFound = "Role does not exist.";
 
             #region Test
             public const string TestNotFound = "Test does not exist.";

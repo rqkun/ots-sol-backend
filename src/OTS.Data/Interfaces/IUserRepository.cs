@@ -13,8 +13,9 @@ namespace OTS.Data.Interfaces
         Task<IdentityResult> SignUp(SignUpModel req);
         Task<UserModel> Get(Guid request);
         Task<UserModel> Get(string request);
-        Task<ICollection<UserModel>> GetAll(FilterModel filter);
+        Task<List<UserModel>> GetAll(FilterModel filter);
         Task<bool> ChangePassword(ChangePasswordModel model);
         Task<bool> ResetPassword(ResetPasswordModel model);
+        Task<IdentityResult> Delete(Guid id);
     }
 }

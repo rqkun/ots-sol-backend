@@ -90,6 +90,13 @@ namespace OTS.Data
                     option => option.MapFrom(source => source.AvatarSeed));
             #endregion
 
+            #region Role
+            CreateMap<CreateRoleModel, Role>();
+            CreateMap<Role, RoleModel>()
+                .ForMember(destination => destination.RoleId,
+                    option => option.MapFrom(source => source.Id));
+            #endregion
+
             #region Submit
             CreateMap<Submit, SubmitModel>();
             CreateMap<SubmitModel, Submit>();

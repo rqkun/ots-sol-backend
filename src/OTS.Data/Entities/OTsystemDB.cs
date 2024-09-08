@@ -52,6 +52,21 @@ namespace OTS.Data.Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            /*List<IdentityRole> roleList = new List<IdentityRole> {
+                new IdentityRole
+                {
+                    Name ="Admin",
+                    NormalizedName="admin"
+                },
+                new IdentityRole {
+                    Name="Moderator",
+                    NormalizedName = "moderator"
+                },
+                new IdentityRole {
+                    Name ="User",
+                    NormalizedName="user"
+                }
+            };*/
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
                 var tableName = entityType.GetTableName();
@@ -62,7 +77,7 @@ namespace OTS.Data.Entities
             }
             modelBuilder.Entity<User>().Property(i => i.Id).HasColumnName("UserId");
             modelBuilder.Entity<Role>().Property(i => i.Id).HasColumnName("RoleId");
-
+            //modelBuilder.Entity<IdentityRole>().HasData(roleList);
             //modelBuilder.Seed();
             
             OnModelCreatingPartial(modelBuilder);

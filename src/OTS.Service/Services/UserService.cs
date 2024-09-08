@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OTS.Data.Entities;
 using OTS.Data.Interfaces;
 using OTS.Data.Models;
 using OTS.Service.Interfaces;
@@ -15,17 +17,39 @@ namespace OTS.Service.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepository;
+        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IMapper mapper, IRoleRepository roleRepository,UserManager<User> userManager)
         { 
             _userRepository = userRepository;
+            _roleRepository = roleRepository;
+            _userManager = userManager;
             _mapper = mapper;
         }
 
         public async Task<IdentityResult> SignUp(SignUpModel req)
         {
-            
             return await _userRepository.SignUp(req);
+        }
+        public async Task<UserModel> Get(string email)
+        {
+            return await _userRepository.Get(email);
+        }
+
+        public async Task<UserModel> Get(Guid guid)
+        {
+            return await _userRepository.Get(guid);
+        }
+
+        public async Task<List<UserModel>> GetAll(FilterModel filter)
+        {
+            return await _userRepository.GetAll(filter);
+        }
+
+        public async Task<IdentityResult> Delete(Guid guid)
+        {
+            return await _userRepository.Delete(guid);
         }
     }
 }

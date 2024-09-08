@@ -20,6 +20,8 @@ namespace OTS.Data
             service.AddTransient<IAnswerRepository, AnswerRepository>();
             service.AddTransient<IQuestionForTestRepository, QuestionForTestRepository>();
             service.AddTransient<IQuestionRepository, QuestionRepository>();
+            service.AddTransient<IRoleRepository, RoleRepository>();
+
             return service;
         }
     }
