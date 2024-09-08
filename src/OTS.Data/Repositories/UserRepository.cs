@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,12 +11,14 @@ using Azure.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using OTS.Common;
 using OTS.Common.ErrorHandle;
 using OTS.Data.Entities;
 using OTS.Data.Interfaces;
 using OTS.Data.Models;
 using OTS.Data.ViewModels;
+using static OTS.Common.ErrorHandle.ErrorMessages;
 
 namespace OTS.Data.Repositories
 {
@@ -38,7 +42,7 @@ namespace OTS.Data.Repositories
         public async Task<UserModel> Get(Guid request)
         {
             var foundUser = this.GetById(request) ??
-                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.UserNotFound);
+                throw new KeyNotFoundException(KeyNotFoundMessage.UserNotFound);
             try
             {
                 var user = _mapper.Map<UserModel>(foundUser);
@@ -53,7 +57,7 @@ namespace OTS.Data.Repositories
         public async Task<UserModel> Get(string request)
         {
             var foundUser =  _userManager.FindByEmailAsync(request) ??
-                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.UserNotFound);
+                throw new KeyNotFoundException(KeyNotFoundMessage.UserNotFound);
             try
             {
                 var user = _mapper.Map<UserModel>(foundUser);
@@ -65,14 +69,14 @@ namespace OTS.Data.Repositories
                 throw new Exception(ex.Message); // Return error message
             }
         }
-        public async Task<ICollection<UserModel>> GetAll(FilterModel filter)
+        public async Task<List<UserModel>> GetAll(FilterModel filter)
         {
-            var list = this.GetAll();
-            ICollection<UserModel> modelList = [];
-            foreach (var item in list)
+            var list = this.GetAll().Where(x => x.IsDeleted == filter.IsDeleted);
+            List<UserModel> modelList = [];
+            foreach (var item in list.ToList())
             {
                 UserModel submitModel = _mapper.Map<UserModel>(item);
-                modelList.Append(submitModel);
+                modelList.Add(submitModel);
             }
             return await Task.FromResult(modelList);
         }
@@ -80,7 +84,7 @@ namespace OTS.Data.Repositories
         {
             
             var foundUser = await _userManager.FindByEmailAsync(model.Email) ??
-                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.UserNotFound);
+                 throw new KeyNotFoundException(KeyNotFoundMessage.UserNotFound);
             try
             {
                 await _userManager.ChangePasswordAsync(foundUser, model.OldPassword, model.NewPassword);
@@ -97,7 +101,7 @@ namespace OTS.Data.Repositories
         {
 
             var foundUser = await _userManager.FindByEmailAsync(model.Email) ??
-                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.UserNotFound);
+                 throw new KeyNotFoundException(KeyNotFoundMessage.UserNotFound);
             try
             {
                 await _userManager.ResetPasswordAsync(foundUser,model.Token,model.NewPassword);
@@ -112,20 +116,20 @@ namespace OTS.Data.Repositories
         }
         public async Task<IdentityResult> SignUp(SignUpModel req)
         {
-            var userEmail = await _userManager.FindByEmailAsync(req.Email);
-            if (userEmail != null)
-            {
-                throw new Exception("Account existed.");
-            }
-            var userName = await _userManager.FindByNameAsync(req.Username);
-            if (userName != null)
-            {
-                throw new Exception("Account existed.");
-            }
-
             var user = _mapper.Map<User>(req);
-            return await _userManager.CreateAsync(user, req.Password);
+            var createdUser = await _userManager.CreateAsync(user, req.Password);
+            if (createdUser.Succeeded)
+            {
+                var roleResult = await _userManager.AddToRoleAsync(user, "User");
+                return roleResult;
+            }
+            else return createdUser;
         }
 
+        public async Task<IdentityResult> Delete(Guid id)
+        {
+            var result = await _userManager.DeleteAsync(this.GetById(id));
+            return result;
+        }
     }
 }

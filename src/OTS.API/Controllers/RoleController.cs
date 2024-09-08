@@ -9,22 +9,22 @@ namespace OTS.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class RoleController : ControllerBase
     {
-        private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly IRoleService _roleService;
+        public RoleController(IRoleService roleService)
         {
-            this._userService = userService;
+            this._roleService = roleService;
         }
 
         [HttpPost("[action]")]
         [AllowAnonymous]
-        public async Task<IActionResult> SignUp(SignUpModel request)
+        public async Task<IActionResult> Create(CreateRoleModel request)
         {
             try {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
-                IdentityResult result = await _userService.SignUp(request);
+                IdentityResult result = await _roleService.Create(request);
                 if (result.Succeeded)
                 {
                     return Ok(result);
@@ -44,24 +44,7 @@ namespace OTS.API.Controllers
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
-                return Ok(await _userService.GetAll(filter));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        
-        [HttpGet("[action]")]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetById(Guid id)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-                var user = await _userService.Get(id);
-                return Ok(user);
+                return Ok(await _roleService.GetAll(filter));
             }
             catch (Exception ex)
             {
@@ -70,14 +53,14 @@ namespace OTS.API.Controllers
         }
         [HttpGet("[action]")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetByEmail(string email)
+        public async Task<IActionResult> Get(Guid id)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
-                var user = await _userService.Get(email);
-                return Ok(user);
+                var role = await _roleService.Get(id);
+                return Ok(role);
             }
             catch (Exception ex)
             {
@@ -92,7 +75,7 @@ namespace OTS.API.Controllers
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
-                IdentityResult result = await _userService.Delete(id);
+                IdentityResult result = await _roleService.Delete(id);
                 if (result.Succeeded)
                 {
                     return Ok(result);
@@ -105,6 +88,5 @@ namespace OTS.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
     }
 }
