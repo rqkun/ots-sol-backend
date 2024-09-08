@@ -12,5 +12,9 @@ namespace OTS.Service.Interfaces
     public interface IUserService
     {
         Task<IdentityResult> SignUp(SignUpModel req);
+        Task<UserModel> Get(string email);
+        Task<UserModel> Get(Guid guid);
+        Task<List<UserModel>> GetAll(FilterModel filter);
+        Task<IdentityResult> Delete(Guid guid);
     }
 }

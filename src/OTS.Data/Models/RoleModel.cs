@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace OTS.Data.Models
 {
     public class RoleModel
     {
+        public Guid RoleId { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
     }
@@ -24,8 +26,10 @@ namespace OTS.Data.Models
         public Guid RoleId { get; set; }
     }
 
-    public class UserRolesUpdateModel
-    {
-        public IEnumerable<Guid> RoleId { get; set; } = Enumerable.Empty<Guid>();
+    public class CreateRoleModel {
+        [Required]
+        public string Name { get; set; } = "";
+        public string Description { get; set; } = "";
+
     }
 }
