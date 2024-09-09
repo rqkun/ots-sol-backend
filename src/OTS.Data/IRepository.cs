@@ -16,7 +16,7 @@ namespace OTS.Data
 
         IQueryable<TEntity> GetAll();
 
-        Task Update(TEntity entity);
+        Task Update(TEntity entity, TEntity newEntity);
 
         Task Update(IEnumerable<TEntity> entities);
 

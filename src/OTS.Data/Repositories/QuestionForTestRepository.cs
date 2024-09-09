@@ -118,7 +118,7 @@ namespace OTS.Data.Repositories
             {
                 var updateQFT = _mapper.Map<QuestionForTest>(request);
 
-                await this.Update(updateQFT);
+                await this.Update(foundQFT, updateQFT);
                 return await Task.FromResult(true); // Return true if the operation succeeds
             }
             catch (Exception ex)

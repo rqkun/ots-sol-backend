@@ -39,14 +39,14 @@ namespace OTS.Service.Services
         public async Task<bool> Update(TestUpdateModel request)
         {
             _ = await _testRepository.GetById(request.TestId);
-            await _testRepository.Update(request);
+            await _testRepository.UpdateTest(request);
             return await Task.FromResult(true);
         }
 
         public async Task<bool> Delete(TestModel request)
         {
             _ = await _testRepository.GetById(request.TestId);
-            await _testRepository.Delete(request);
+            await _testRepository.DeleteTest(request);
             return await Task.FromResult(true);
         }
     }

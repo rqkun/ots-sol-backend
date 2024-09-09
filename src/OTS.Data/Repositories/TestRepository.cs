@@ -97,15 +97,16 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Update(TestUpdateModel request)
+        public async Task<bool> UpdateTest(TestUpdateModel request)
         {
             var foundTest = await Entities.Where(t => t.IsDeleted == false).FirstOrDefaultAsync(t => t.TestId == request.TestId) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
             {
                 var updateTest = _mapper.Map<Test>(request);
+                updateTest.CreatorId = foundTest.CreatorId;
 
-                await this.Update(updateTest);
+                await this.Update(foundTest, updateTest);
                 return await Task.FromResult(true); // Return true if the operation succeeds
             }
             catch (Exception ex)
@@ -115,7 +116,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Delete(TestModel request)
+        public async Task<bool> DeleteTest(TestModel request)
         {
             var foundTest = await Entities.Where(t => t.IsDeleted == false).FirstOrDefaultAsync(t => t.TestId == request.TestId) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
@@ -124,7 +125,7 @@ namespace OTS.Data.Repositories
                 var deleteTest = _mapper.Map<Test>(foundTest);
                 deleteTest.IsDeleted = true;
 
-                await this.Update(deleteTest);
+                await this.Update(foundTest, deleteTest);
                 return await Task.FromResult(true); // Return true if the operation succeeds
             }
             catch (Exception ex)

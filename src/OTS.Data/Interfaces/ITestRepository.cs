@@ -9,7 +9,7 @@ namespace OTS.Data.Interfaces
         Task<TestViewModel> GetById(Guid request);
         Task<ICollection<TestViewModel>> GetAll();
         Task<bool> Create(TestCreateModel request);
-        Task<bool> Update(TestUpdateModel request);
-        Task<bool> Delete(TestModel request);
+        Task<bool> UpdateTest(TestUpdateModel request);
+        Task<bool> DeleteTest(TestModel request);
     }
 }

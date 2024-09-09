@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OTS.Data
 {
@@ -82,12 +83,16 @@ namespace OTS.Data
             Entities.RemoveRange(entities);
         }
 
-        public async Task Update(TEntity entity)
+        public async Task Update(TEntity entity, TEntity newEntity)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
 
-            Entities.Update(entity);
+            //Entities.Update(entity);
+
+            var entry = Entities.Entry(entity);
+            entry.CurrentValues.SetValues(newEntity);
+
             await _dbContext.SaveChangesAsync();
         }
 

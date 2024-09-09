@@ -102,7 +102,7 @@ namespace OTS.Data.Repositories
             {
                 var updateQuestion = _mapper.Map<Question>(request);
 
-                await this.Update(updateQuestion);
+                await this.Update(foundQuestion, updateQuestion);
                 return await Task.FromResult(true); // Return true if the operation succeeds
             }
             catch (Exception ex)
@@ -121,7 +121,7 @@ namespace OTS.Data.Repositories
                 var deleteQuestion = _mapper.Map<Question>(foundQuestion);
                 deleteQuestion.IsDeleted = true;
 
-                await this.Update(deleteQuestion);
+                await this.Update(foundQuestion, deleteQuestion);
                 return await Task.FromResult(true); // Return true if the operation succeeds
             }
             catch (Exception ex)

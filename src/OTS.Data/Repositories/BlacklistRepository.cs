@@ -57,7 +57,7 @@ namespace OTS.Data.Repositories
         public async Task<bool> Update(BlacklistUpdateModel model)
         {
             var entity = this.GetById(model.BlacklistId) ?? throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.BlacklistNotFound);
-            await this.Update(entity);
+            await this.Update(entity, entity);
             return await Task.FromResult(true);
         }
     }
