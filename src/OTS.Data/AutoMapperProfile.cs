@@ -78,16 +78,24 @@ namespace OTS.Data
 
             #region User
             CreateMap<User, UserModel>()
-                .ForMember(destination => destination.UserId, 
+                .ForMember(destination => destination.UserId,
                     option => option.MapFrom(source => source.Id))
-                .ForMember(destination => destination.Email, 
-                    option => option.MapFrom(source => source.Email))
-                .ForMember(destination => destination.UserName, 
+                .ForMember(destination => destination.UserName,
                     option => option.MapFrom(source => source.UserName))
-                .ForMember(destination => destination.Password, 
-                    option => option.MapFrom(source => source.PasswordHash))
-                .ForMember(destination => destination.AvatarSeed, 
-                    option => option.MapFrom(source => source.AvatarSeed));
+                .ForMember(destination => destination.Password,
+                    option => option.MapFrom(source => source.PasswordHash));
+            CreateMap<UserModel, User>()
+                .ForMember(destination => destination.Id,
+                    option => option.MapFrom(source => source.UserId))
+                .ForMember(destination => destination.PasswordHash,
+                    option => option.MapFrom(source => source.Password));
+
+            CreateMap<SignUpModel, User>()
+                .ForMember(destination => destination.UserName,
+                    option => option.MapFrom(source => source.Username))
+                .ForMember(destination => destination.PasswordHash,
+                    option => option.MapFrom(source => source.Password));
+
             #endregion
 
             #region Role
