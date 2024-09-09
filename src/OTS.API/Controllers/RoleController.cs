@@ -16,7 +16,7 @@ namespace OTS.API.Controllers
         {
             this._roleService = roleService;
         }
-
+        /*
         [HttpPost("[action]")]
         [AllowAnonymous]
         public async Task<IActionResult> Create(CreateRoleModel request)
@@ -87,6 +87,6 @@ namespace OTS.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }
+        }*/
     }
 }
