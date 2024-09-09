@@ -40,7 +40,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<AnswerViewModel> GetById(Guid request)
+        public async Task<AnswerViewModel> FindById(Guid request)
         {
             var foundAnswer = await Entities.Where(a => a.IsDeleted == false).FirstOrDefaultAsync(a => a.AnswerId == request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.AnswerNotFound);
@@ -56,9 +56,9 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public new async Task<ICollection<AnswerViewModel>> GetAll()
+        public async Task<ICollection<AnswerViewModel>> FindAll(FilterModel filter)
         {
-            var foundAnswers = await Entities.Where(a => a.IsDeleted == false).ToListAsync() ??
+            var foundAnswers = await Entities.Where(a => a.IsDeleted == filter.IsDeleted).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.AnswerNotFound);
             try
             {
@@ -94,13 +94,14 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Update(AnswerUpdateModel request)
+        public async Task<bool> UpdateAnswer(AnswerUpdateModel request)
         {
             var foundAnswer = await Entities.Where(a => a.IsDeleted == false).FirstOrDefaultAsync(a => a.AnswerId == request.AnswerId) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.AnswerNotFound);
             try
             {
                 var updateAnswer = _mapper.Map<Answer>(request);
+                updateAnswer.QuestionId = foundAnswer.QuestionId;
 
                 await this.Update(foundAnswer, updateAnswer);
                 return await Task.FromResult(true); // Return true if the operation succeeds
@@ -112,13 +113,14 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Delete(AnswerModel request)
+        public async Task<bool> DeleteAnswer(AnswerModel request)
         {
             var foundAnswer = await Entities.Where(a => a.IsDeleted == false).FirstOrDefaultAsync(a => a.AnswerId == request.AnswerId) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.AnswerNotFound);
             try
             {
                 var deleteAnswer = _mapper.Map<Answer>(foundAnswer);
+                deleteAnswer.QuestionId = foundAnswer.QuestionId;
                 deleteAnswer.IsDeleted = true;
 
                 await this.Update(foundAnswer, deleteAnswer);

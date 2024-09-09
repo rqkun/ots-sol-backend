@@ -23,9 +23,9 @@ namespace OTS.API.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(FilterModel filter)
         {
-            var result = await _testService.GetAll();
+            var result = await _testService.GetAll(filter);
             return Ok(result);
         }
 

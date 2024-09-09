@@ -11,7 +11,7 @@ namespace OTS.Service.Interfaces
     public interface IAnswerService
     {
         Task<AnswerViewModel> GetById(Guid request);
-        Task<ICollection<AnswerViewModel>> GetAll();
+        Task<ICollection<AnswerViewModel>> GetAll(FilterModel filter);
         Task<bool> Create(AnswerCreateModel request);
         Task<bool> Update(AnswerUpdateModel request);
         Task<bool> Delete(AnswerModel request);

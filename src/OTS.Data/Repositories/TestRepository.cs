@@ -43,7 +43,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<TestViewModel> GetById(Guid request)
+        public async Task<TestViewModel> FindById(Guid request)
         {
             var foundTest = await Entities.Where(t => t.IsDeleted == false).FirstOrDefaultAsync(t => t.TestId == request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
@@ -59,9 +59,9 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public new async Task<ICollection<TestViewModel>> GetAll()
+        public async Task<ICollection<TestViewModel>> FindAll(FilterModel filter)
         {
-            var foundTests = await Entities.Where(t => t.IsDeleted == false).ToListAsync() ??
+            var foundTests = await Entities.Where(t => t.IsDeleted == filter.IsDeleted).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
             {
@@ -123,6 +123,7 @@ namespace OTS.Data.Repositories
             try
             {
                 var deleteTest = _mapper.Map<Test>(foundTest);
+                deleteTest.CreatorId = foundTest.CreatorId;
                 deleteTest.IsDeleted = true;
 
                 await this.Update(foundTest, deleteTest);

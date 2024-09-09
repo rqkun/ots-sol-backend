@@ -11,7 +11,7 @@ namespace OTS.Service.Interfaces
     public interface IQuestionService
     {
         Task<QuestionViewModel> GetById(Guid request);
-        Task<ICollection<QuestionViewModel>> GetAll();
+        Task<ICollection<QuestionViewModel>> GetAll(FilterModel filter);
         Task<bool> Create(QuestionCreateModel request);
         Task<bool> Update(QuestionUpdateModel request);
         Task<bool> Delete(QuestionModel request);

@@ -40,7 +40,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<QuestionForTestViewModel> GetById(Guid request)
+        public async Task<QuestionForTestViewModel> FindById(Guid request)
         {
             var foundQFT = await Entities.Where(qft => qft.IsDeleted == false).FirstOrDefaultAsync(qft => qft.QuestionForTestId == request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionForTestNotFound);
@@ -56,7 +56,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<QuestionForTestModel> GetByQuestionAndTestId(Guid questionId, Guid testId)
+        public async Task<QuestionForTestModel> FindByQuestionAndTestId(Guid questionId, Guid testId)
         {
             var foundQFT = await Entities.Where(qft => qft.IsDeleted == false).FirstOrDefaultAsync(qft => qft.QuestionId == questionId && qft.TestId == testId) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionForTestNotFound);
@@ -72,9 +72,9 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public new async Task<ICollection<QuestionForTestViewModel>> GetAll()
+        public async Task<ICollection<QuestionForTestViewModel>> FindAll(FilterModel filter)
         {
-            var foundQFTs = await Entities.Where(qft => qft.IsDeleted == false).ToListAsync() ??
+            var foundQFTs = await Entities.Where(qft => qft.IsDeleted == filter.IsDeleted).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionForTestNotFound);
             try
             {
@@ -117,6 +117,8 @@ namespace OTS.Data.Repositories
             try
             {
                 var updateQFT = _mapper.Map<QuestionForTest>(request);
+                updateQFT.QuestionId = foundQFT.QuestionForTestId;
+                updateQFT.TestId = foundQFT.TestId;
 
                 await this.Update(foundQFT, updateQFT);
                 return await Task.FromResult(true); // Return true if the operation succeeds

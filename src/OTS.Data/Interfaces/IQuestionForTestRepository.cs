@@ -6,9 +6,9 @@ namespace OTS.Data.Interfaces
 {
     public interface IQuestionForTestRepository
     {
-        Task<QuestionForTestViewModel> GetById(Guid request);
-        Task<QuestionForTestModel> GetByQuestionAndTestId(Guid questionId, Guid testId);
-        Task<ICollection<QuestionForTestViewModel>> GetAll();
+        Task<QuestionForTestViewModel> FindById(Guid request);
+        Task<QuestionForTestModel> FindByQuestionAndTestId(Guid questionId, Guid testId);
+        Task<ICollection<QuestionForTestViewModel>> FindAll(FilterModel filter);
         Task<bool> Create(QuestionForTestCreateModel request);
         Task<bool> Update(QuestionForTestModel request);
         Task<bool> Delete(QuestionForTestModel request);

@@ -40,7 +40,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<QuestionViewModel> GetById(Guid request)
+        public async Task<QuestionViewModel> FindById(Guid request)
         {
             var foundQuestion = await Entities.Where(q => q.IsDeleted == false).FirstOrDefaultAsync(q => q.QuestionId == request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionNotFound);
@@ -56,9 +56,9 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public new async Task<ICollection<QuestionViewModel>> GetAll()
+        public async Task<ICollection<QuestionViewModel>> FindAll(FilterModel filter)
         {
-            var foundQuestions = await Entities.Where(q => q.IsDeleted == false).ToListAsync() ??
+            var foundQuestions = await Entities.Where(q => q.IsDeleted == filter.IsDeleted).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionNotFound);
             try
             {
@@ -94,7 +94,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Update(QuestionUpdateModel request)
+        public async Task<bool> UpdateQuestion(QuestionUpdateModel request)
         {
             var foundQuestion = await Entities.Where(q => q.IsDeleted == false).FirstOrDefaultAsync(q => q.QuestionId == request.QuestionId) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionNotFound);
@@ -112,7 +112,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Delete(QuestionModel request)
+        public async Task<bool> DeleteQuestion(QuestionModel request)
         {
             var foundQuestion = await Entities.Where(q => q.IsDeleted == false).FirstOrDefaultAsync(q => q.QuestionId == request.QuestionId) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionNotFound);
