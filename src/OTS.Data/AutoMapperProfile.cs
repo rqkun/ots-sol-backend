@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 using OTS.Data.Models;
 using OTS.Data.Entities;
+using OTS.Data.ViewModels;
 
 namespace OTS.Data
 {
@@ -19,8 +19,62 @@ namespace OTS.Data
         {
             #region Test
             CreateMap<TestCreateModel, Test>();
+            CreateMap<TestUpdateModel, Test>();
+            CreateMap<TestModel, Test>();
 
+            CreateMap<Test, TestViewModel>()
+                .ForMember(destination => destination.TestId,
+                    option => option.MapFrom(source => source.TestId))
+                .ForMember(destination => destination.CreatorId,
+                    option => option.MapFrom(source => source.CreatorId))
+                .ForMember(destination => destination.CreateDate,
+                    option => option.MapFrom(source => source.CreateDate))
+                .ForMember(destination => destination.EndDate,
+                    option => option.MapFrom(source => source.EndDate));
             #endregion
+
+
+            #region Answer
+            CreateMap<AnswerCreateModel, Answer>();
+            CreateMap<AnswerUpdateModel, Answer>();
+            CreateMap<AnswerModel, Answer>();
+
+            CreateMap<Answer, AnswerViewModel>()
+                .ForMember(destination => destination.AnswerId,
+                    option => option.MapFrom(source => source.AnswerId))
+                .ForMember(destination => destination.AnswerDetail,
+                    option => option.MapFrom(source => source.AnswerDetail))
+                .ForMember(destination => destination.IsCorrect,
+                    option => option.MapFrom(source => source.IsCorrect));
+            #endregion
+
+
+            #region QuestionForTest
+            CreateMap<QuestionForTestCreateModel, QuestionForTest>();
+            CreateMap<QuestionForTestModel, QuestionForTest>();
+
+            CreateMap<QuestionForTest, QuestionForTestViewModel>()
+                .ForMember(destination => destination.QuestionForTestId,
+                    option => option.MapFrom(source => source.QuestionForTestId))
+                .ForMember(destination => destination.TestId,
+                    option => option.MapFrom(source => source.TestId));
+            #endregion
+
+
+            #region Question
+            CreateMap<QuestionCreateModel, Question>();
+            CreateMap<QuestionUpdateModel, Question>();
+            CreateMap<QuestionModel, Question>();
+
+            CreateMap<Question,  QuestionViewModel>()
+                .ForMember(destination => destination.QuestionId,
+                    option => option.MapFrom(source => source.QuestionId))
+                .ForMember(destination => destination.QuestionNo,
+                    option => option.MapFrom(source => source.QuestionNo))
+                .ForMember(destination => destination.QuestionDetail,
+                    option => option.MapFrom(source => source.Detail));
+            #endregion
+
 
             #region User
             CreateMap<User, UserModel>()

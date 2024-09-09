@@ -43,6 +43,18 @@ namespace OTS.Common.ErrorHandle
             public const string BlacklistNotFound = "Blacklist entry does not exist.";
             public const string RoleNotFound = "Role does not exist.";
 
+            #region Test
+            public const string TestNotFound = "Test does not exist.";
+            #endregion
+
+            #region Answer
+            public const string AnswerNotFound = "Answer does not exist.";
+            #endregion
+
+            #region Question
+            public const string QuestionForTestNotFound = "Question for test does not exist.";
+            public const string QuestionNotFound = "Question does not exist.";
+            #endregion
         }
     }
 }
