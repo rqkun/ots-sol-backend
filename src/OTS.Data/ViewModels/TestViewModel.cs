@@ -1,5 +1,6 @@
 ﻿namespace OTS.Data.ViewModels
 {
+    #region View model
     public class TestViewModel
     {
         public Guid TestId { get; set; }
@@ -21,7 +22,7 @@
         public Guid QuestionId { get; set; }
         public int QuestionNo { get; set; }
         public string? QuestionDetail { get; set; }
-        public ICollection<AnswerViewModel> AnswerViewModels { get; set; } = new List<AnswerViewModel>();
+        public virtual ICollection<AnswerViewModel> AnswerViewModels { get; set; } = new List<AnswerViewModel>();
         public bool IsDeleted { get; set; }
     }
     public class AnswerViewModel
@@ -31,4 +32,15 @@
         public bool IsCorrect { get; set; }
         public bool IsDeleted { get; set; }
     }
+    #endregion
+
+    #region List view model
+    public class AllTestViewModel
+    {
+        public int Total { get; set; }
+        public int Page { get; set; }
+        public int Limit { get; set; }
+        public virtual ICollection<TestViewModel> TestViewModels { get; set; } = new List<TestViewModel>();
+    }
+    #endregion
 }
