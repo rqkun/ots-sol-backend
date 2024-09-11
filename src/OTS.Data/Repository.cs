@@ -43,11 +43,9 @@ namespace OTS.Data
             return Entities;
         }
 
-        public TEntity GetById(object id)
+        public TEntity? GetById(object id)
         {
-            var found = Entities.Find(id) ??
-                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.UserNotFound);
-            return found;
+            return Entities.Find(id);
         }
 
         public void Remove(object id)

@@ -25,24 +25,9 @@ namespace OTS.Data.Repositories
             this._dbContext = dbContext;
         }
 
-        public async Task<Question> GetEntity(Guid id)
-        {
-            var foundEntity = await Entities.FirstOrDefaultAsync(q => q.QuestionId == id) ??
-                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionNotFound);
-            try
-            {
-                return await Task.FromResult<Question>(foundEntity); // Return true if the operation succeeds
-            }
-            catch (Exception ex)
-            {
-                // Handle or log the exception as needed
-                throw new Exception(ex.Message); // Return error message
-            }
-        }
-
         public async Task<QuestionViewModel> FindById(Guid request)
         {
-            var foundQuestion = await Entities.Where(q => q.IsDeleted == false).FirstOrDefaultAsync(q => q.QuestionId == request) ??
+            var foundQuestion = this.GetById(request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionNotFound);
             try
             {

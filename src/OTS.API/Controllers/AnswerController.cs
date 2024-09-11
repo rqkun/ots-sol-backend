@@ -23,7 +23,7 @@ namespace OTS.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("[action]")]
+        [HttpPost("[action]")]
         public async Task<IActionResult> GetAll(FilterModel filter)
         {
             var result = await _answerService.GetAll(filter);
