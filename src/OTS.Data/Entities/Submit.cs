@@ -22,6 +22,8 @@ namespace OTS.Data.Entities
         public double Score { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public virtual ICollection<SubmittedAnswer> SubmittedAnswers { get; set; } = new List<SubmittedAnswer>();
     }
 
     [Table("SubmittedAnswer")]
