@@ -14,7 +14,9 @@
     {
         public Guid QuestionForTestId { get; set; }
         public Guid TestId { get; set; }
-        public virtual QuestionViewModel? Question { get; set; }
+        //public virtual TestViewModel? Test { get; set; }
+        public Guid QuestionId { get; set; }
+        public virtual QuestionViewModel? QuestionViewModel { get; set; }
         public bool IsDeleted { get; set; }
     }
     public class QuestionViewModel

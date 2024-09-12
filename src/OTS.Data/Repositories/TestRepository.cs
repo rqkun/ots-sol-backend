@@ -46,7 +46,9 @@ namespace OTS.Data.Repositories
 
         public async Task<ICollection<TestViewModel>> FindAll(FilterModel filter)
         {
-            var foundTests = await Entities.Where(t => t.IsDeleted == filter.IsDeleted).ToListAsync() ??
+            var foundTests = await Entities
+                .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers)
+                .Where(t => t.IsDeleted == filter.IsDeleted).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
             {
