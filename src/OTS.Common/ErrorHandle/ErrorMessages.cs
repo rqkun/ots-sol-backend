@@ -56,5 +56,10 @@ namespace OTS.Common.ErrorHandle
             public const string QuestionNotFound = "Question does not exist.";
             #endregion
         }
+        public static class LoginMessage
+        {
+            public const string InvalidCredentials = "Invalid Username/Password!";
+        }
+
     }
 }

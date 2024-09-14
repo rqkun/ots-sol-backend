@@ -36,6 +36,8 @@ namespace OTS.Common.ErrorHandle
                     PasswordException => (int)HttpStatusCode.BadRequest,// missing field error
                     KeyNotFoundException => (int)HttpStatusCode.NotFound,// not found error
                     DuplicateException => (int)HttpStatusCode.Conflict,// duplicatte error
+                    SignInException => (int)HttpStatusCode.Unauthorized,
+                    SignUpException => (int)HttpStatusCode.BadRequest,
                     _ => (int)HttpStatusCode.InternalServerError,// unhandled error
                 };
                 var result = JsonSerializer.Serialize(new { message = error?.Message });

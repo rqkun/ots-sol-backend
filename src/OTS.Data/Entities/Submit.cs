@@ -9,9 +9,9 @@ namespace OTS.Data.Entities
         [Key]
         public Guid SubmitId { get; set; }
 
-        [Required]
+        /*[Required]
         public Guid? UserId { get; set; }
-        [ForeignKey("UserId")]
+        [ForeignKey("UserId")]*/
         public virtual User? User { get; set; }
 
         [Required]

@@ -40,4 +40,26 @@ namespace OTS.Common.ErrorHandle
         {
         }
     }
+    public class SignInException : Exception
+    {
+        public SignInException() : base() { }
+
+        public SignInException(string message) : base(message) { }
+
+        public SignInException(string message, params object[] args)
+            : base(string.Format(CultureInfo.CurrentCulture, message, args))
+        {
+        }
+    }
+    public class SignUpException : Exception
+    {
+        public SignUpException() : base() { }
+
+        public SignUpException(string message) : base(message) { }
+
+        public SignUpException(string message, params object[] args)
+            : base(string.Format(CultureInfo.CurrentCulture, message, args))
+        {
+        }
+    }
 }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using OTS.Data.Entities;
 using OTS.Data.Interfaces;
 using OTS.Data.Models;
@@ -18,19 +17,21 @@ namespace OTS.Service.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IRoleRepository _roleRepository;
-        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
-        public UserService(IUserRepository userRepository, IMapper mapper, IRoleRepository roleRepository,UserManager<User> userManager)
+        public UserService(IUserRepository userRepository, IMapper mapper, IRoleRepository roleRepository)
         { 
             _userRepository = userRepository;
             _roleRepository = roleRepository;
-            _userManager = userManager;
             _mapper = mapper;
         }
 
         public async Task<IdentityResult> SignUp(SignUpModel req)
         {
             return await _userRepository.SignUp(req);
+        }
+        public async Task<UserModel> SignIn(SignInModel req)
+        {
+            return await _userRepository.SignIn(req);
         }
         public async Task<UserModel> Get(string email)
         {
