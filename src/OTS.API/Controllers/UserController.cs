@@ -11,28 +11,54 @@ namespace OTS.API.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
+        private readonly ITokenService _tokenService;
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, ITokenService tokenService)
         {
             this._userService = userService;
+            this._tokenService = tokenService;
         }
 
         [HttpPost("[action]")]
         [AllowAnonymous]
         public async Task<IActionResult> SignUp(SignUpModel request)
         {
-            try {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-                IdentityResult result = await _userService.SignUp(request);
-                if (result.Succeeded)
-                {
-                    return Ok(result);
-                }
-                else return StatusCode(500, result.Errors);
-
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            IdentityResult result = await _userService.SignUp(request);
+            if (result.Succeeded)
+            {
+                return Ok(
+                    new TokenModel
+                    {
+                        UserName = request.Username,
+                        Email = request.Email,
+                        Token = _tokenService.CreateToken(request)
+                    }
+                );
             }
-            catch (Exception ex) {
+            else return StatusCode(500, result.Errors);
+        }
+        [HttpPost("[action]")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignIn(SignInModel request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var user = await _userService.SignIn(request);
+            try
+            {
+                return Ok(
+                    new TokenModel
+                    {
+                        UserName = user.UserName,
+                        Email = user.Email,
+                        Token = _tokenService.CreateToken(user)
+                    }
+                );
+            }
+            catch (Exception ex)
+            {
                 return BadRequest(ex.Message);
             }
         }

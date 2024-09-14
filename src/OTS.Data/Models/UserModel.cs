@@ -24,8 +24,6 @@ namespace OTS.Data.Models
         public string Email { get; set; } = null!;
         [Required]
         public string Password { get; set; } = null!;
-        [Required]
-        public string ConfirmPassword { get; set; } = null!;
         public string? AvatarSeed { get; set; }
 
     }
@@ -37,8 +35,6 @@ namespace OTS.Data.Models
         public string Email { get; set; } = null!;
         [Required]
         public string Password { get; set; } = null!;
-        [Required]
-        public string ConfirmPassword { get; set; } = null!;
 
     }
     public class SignInModel
@@ -57,8 +53,6 @@ namespace OTS.Data.Models
         public string Token { get; set; } = "";
         [Required]
         public string NewPassword { get; set; } = "";
-        [Required]
-        public string ConfirmPassword { get; set; } = "";
     }
     public class ChangePasswordModel
     {
@@ -68,7 +62,11 @@ namespace OTS.Data.Models
         public string OldPassword { get; set; } = "";
         [Required]
         public string NewPassword { get; set; } = "";
-        [Required]
-        public string ConfirmPassword { get; set; } = "";
+    }
+    public class TokenModel
+    {
+        public string UserName { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Token { get; set; } = "";
     }
 }

@@ -18,6 +18,7 @@ namespace OTS.Service
             service.AddTransient<IAnswerService, AnswerService>();
             service.AddTransient<IQuestionService, QuestionService>();
             service.AddTransient<IRoleService, RoleService>();
+            service.AddTransient<ITokenService, TokenService>();
             return service;
         }
     }
