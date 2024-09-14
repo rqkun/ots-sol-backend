@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Formats.Tar;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,8 +45,10 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<ICollection<TestViewModel>> FindAll(FilterModel filter)
+        public async Task<AllTestViewModel> FindAll(FilterModel filter, int page, int limit)
         {
+            page = page != 0 ? page : 1;
+            limit = limit != 0 ? limit : 10;
             var foundTests = await Entities
                 .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers)
                 .Where(t => t.IsDeleted == filter.IsDeleted).ToListAsync() ??
@@ -58,7 +61,16 @@ namespace OTS.Data.Repositories
                     var obj = _mapper.Map<TestViewModel>(test);
                     testList.Add(obj);
                 }
-                return await Task.FromResult(testList); // Return true if the operation succeeds
+                int totalCount = testList.Count;
+                testList = testList.Skip((page -1) * limit).Take(limit).ToList();
+                AllTestViewModel result = new AllTestViewModel()
+                {
+                    Total = totalCount,
+                    Page = page,
+                    Limit = limit,
+                    TestViewModels = testList
+                };
+                return await Task.FromResult(result); // Return true if the operation succeeds
             }
             catch (Exception ex)
             {

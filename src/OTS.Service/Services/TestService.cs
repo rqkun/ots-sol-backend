@@ -23,9 +23,9 @@ namespace OTS.Service.Services
             return await Task.FromResult(foundTest);
         }
 
-        public async Task<ICollection<TestViewModel>> GetAll(FilterModel filter)
+        public async Task<AllTestViewModel> GetAll(FilterModel filter, int page, int limit)
         {
-            var foundTests = await _testRepository.FindAll(filter);
+            var foundTests = await _testRepository.FindAll(filter, page, limit);
             return await Task.FromResult(foundTests);
         }
         public async Task<bool> Create(TestCreateModel request)

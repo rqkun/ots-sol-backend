@@ -8,7 +8,7 @@ namespace OTS.Service.Interfaces
     public interface ITestService
     {
         Task<TestViewModel> GetById(Guid request);
-        Task<ICollection<TestViewModel>> GetAll(FilterModel filter);
+        Task<AllTestViewModel> GetAll(FilterModel filter, int page, int limit);
         Task<bool> Create(TestCreateModel request);
         Task<bool> Update(TestUpdateModel request);
         Task<bool> Delete(TestModel request);
