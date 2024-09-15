@@ -19,9 +19,12 @@ namespace OTS.Data.Entities
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
 
+        public string? TestCode { get; set; }
+
         public bool IsDeleted { get; set; }
 
         public virtual ICollection<QuestionForTest> QuestionForTests { get; set; } = new List<QuestionForTest>();
+        public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
     }
 
     [Table("Question")]
