@@ -10,11 +10,11 @@ namespace OTS.Data.Entities
         [Key]
         public Guid ReportId { get; set; }
 
-        [Required]
-        [ForeignKey("UserId")]
-        public Guid UserId { get; set; }
+        //[Required]
+        //[ForeignKey("UserId")]
+        //public Guid UserId { get; set; }
 
-        public virtual User? User { get; set; }
+        //public virtual User? User { get; set; }
 
         [Required]
         [ForeignKey("TestId")]

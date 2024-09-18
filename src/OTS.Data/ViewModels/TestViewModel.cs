@@ -7,6 +7,7 @@
         public Guid CreatorId { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string? TestCode { get; set; }
         public virtual ICollection<QuestionForTestViewModel> QuestionForTestViewModels { get; set; } = new List<QuestionForTestViewModel>();
         public bool IsDeleted { get; set; }
     }

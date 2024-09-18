@@ -31,6 +31,8 @@ namespace OTS.Data
                     option => option.MapFrom(source => source.CreateDate))
                 .ForMember(destination => destination.EndDate,
                     option => option.MapFrom(source => source.EndDate))
+                .ForMember(destination => destination.TestCode,
+                    option => option.MapFrom(source => source.TestCode))
                 .ForMember(destination => destination.QuestionForTestViewModels,
                     option => option.MapFrom(source => source.QuestionForTests));
             #endregion

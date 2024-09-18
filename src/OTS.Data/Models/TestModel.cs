@@ -7,18 +7,21 @@
         public Guid CreatorId { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string? TestCode { get; set; }
     }
     public class TestCreateModel
     {
         public Guid CreatorId { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string? TestCode { get; set; }
     }
     public class TestUpdateModel
     {
         public Guid TestId { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string? TestCode { get; set; }
     }
 
     // QUESTION
