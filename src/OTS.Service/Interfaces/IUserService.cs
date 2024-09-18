@@ -15,6 +15,7 @@ namespace OTS.Service.Interfaces
         Task<UserModel> Get(string email);
         Task<UserModel> Get(Guid guid);
         Task<List<UserModel>> GetAll(FilterModel filter);
+        Task<bool> UpdateAvatar(string email, string seed);
         Task<IdentityResult> Delete(Guid guid);
     }
 }

@@ -18,5 +18,6 @@ namespace OTS.Data.Interfaces
         Task<bool> ChangePassword(ChangePasswordModel model);
         Task<bool> ResetPassword(ResetPasswordModel model);
         Task<IdentityResult> Delete(Guid id);
+        Task<bool> UpdateAvatar(string email, string seed);
     }
 }
