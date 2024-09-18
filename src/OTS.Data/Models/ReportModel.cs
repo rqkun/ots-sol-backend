@@ -17,6 +17,7 @@
     }
     public class ReportUpdateModel
     {
+        public Guid ReportId { get; set; }
         // public Guid UserId { get; set; }
         public Guid TestId { get; set; }
         public DateTime ReportDate { get; set; }

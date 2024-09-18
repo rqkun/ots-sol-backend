@@ -126,6 +126,24 @@ namespace OTS.Data
             CreateMap<BlacklistModel, Blacklist>();
             CreateMap<Blacklist, BlacklistModel>();
             #endregion
+
+            #region Report
+            CreateMap<ReportCreateModel, Report>();
+            CreateMap<ReportUpdateModel, Report>();
+            CreateMap<ReportModel, Report>();
+
+            CreateMap<Report, ReportViewModel>()
+                .ForMember(destination => destination.ReportId,
+                    option => option.MapFrom(source => source.ReportId))
+                .ForMember(destination => destination.TestId,
+                    option => option.MapFrom(source => source.TestId))
+                .ForMember(destination => destination.ReportDate,
+                    option => option.MapFrom(source => source.ReportDate))
+                .ForMember(destination => destination.Reason,
+                    option => option.MapFrom(source => source.Reason))
+                .ForMember(destination => destination.IsDeleted,
+                    option => option.MapFrom(source => source.IsDeleted));
+            #endregion
         }
     }
 }
