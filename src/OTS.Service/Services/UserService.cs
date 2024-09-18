@@ -52,5 +52,10 @@ namespace OTS.Service.Services
         {
             return await _userRepository.Delete(guid);
         }
+
+        public async Task<bool> UpdateAvatar(string email, string seed)
+        {
+            return await _userRepository.UpdateAvatar(email,seed);
+        }
     }
 }

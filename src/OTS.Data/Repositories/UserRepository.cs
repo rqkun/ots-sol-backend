@@ -146,5 +146,22 @@ namespace OTS.Data.Repositories
             }
             
         }
+
+        public async Task<bool> UpdateAvatar(string email, string seed)
+        {
+            var user = await _userManager.FindByEmailAsync(email) ?? throw new SignInException(LoginMessage.InvalidCredentials);
+            try
+            {
+                var oldUser = user;
+                user.AvatarSeed = seed;
+                await this.Update(oldUser, user);
+                return await Task.FromResult(true);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            
+        }
     }
 }

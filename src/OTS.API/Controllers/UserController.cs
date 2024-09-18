@@ -110,6 +110,23 @@ namespace OTS.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPut("[action]")]
+        [AllowAnonymous]
+        public async Task<IActionResult> UpdateAvatar(string email, string seed)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+                return Ok(await _userService.UpdateAvatar(email,seed));
+                
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpDelete("[action]")]
         [AllowAnonymous]
         public async Task<IActionResult> Delete(Guid id)
