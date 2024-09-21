@@ -45,6 +45,38 @@ namespace OTS.Data.Repositories
             }
         }
 
+        public async Task<AllTestViewModel> FindByCode(string request, int page, int limit)
+        {
+            page = page != 0 ? page : 1;
+            limit = limit != 0 ? limit : 10;
+            var foundTests = await Entities.Where(t => t.IsDeleted == false && t.TestCode.Contains(request)).ToListAsync() ??
+                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
+            try
+            {
+                var testList = new List<TestViewModel>();
+                foreach (var test in foundTests)
+                {
+                    var obj = _mapper.Map<TestViewModel>(test);
+                    testList.Add(obj);
+                }
+                int totalCount = testList.Count;
+                testList = testList.Skip((page - 1) * limit).Take(limit).ToList();
+                AllTestViewModel result = new AllTestViewModel()
+                {
+                    Total = totalCount,
+                    Page = page,
+                    Limit = limit,
+                    TestViewModels = testList
+                };
+                return await Task.FromResult(result); // Return true if the operation succeeds
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception as needed
+                throw new Exception(ex.Message); // Return error message
+            }
+        }
+
         public async Task<AllTestViewModel> FindAll(FilterModel filter, int page, int limit)
         {
             page = page != 0 ? page : 1;
