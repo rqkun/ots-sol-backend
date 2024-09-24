@@ -6,9 +6,9 @@ namespace OTS.Data.Interfaces
 {
     public interface IAnswerRepository
     {
-        Task<AnswerViewModel> FindById(Guid request);
-        Task<ICollection<AnswerViewModel>> FindAll(FilterModel filter);
-        Task<bool> Create(AnswerCreateModel request);
+        Task<AnswerViewModel> Get(Guid request);
+        Task<ICollection<AnswerViewModel>> GetAll(FilterModel filter);
+        Task<bool> CreateAnswer(AnswerCreateModel request);
         Task<bool> UpdateAnswer(AnswerUpdateModel request);
         Task<bool> DeleteAnswer(AnswerModel request);
     }

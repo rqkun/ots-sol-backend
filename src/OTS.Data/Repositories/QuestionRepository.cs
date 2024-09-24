@@ -25,7 +25,7 @@ namespace OTS.Data.Repositories
             this._dbContext = dbContext;
         }
 
-        public async Task<QuestionViewModel> FindById(Guid request)
+        public async Task<QuestionViewModel> Get(Guid request)
         {
             var foundQuestion = this.GetById(request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionNotFound);
@@ -41,7 +41,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<ICollection<QuestionViewModel>> FindAll(FilterModel filter)
+        public async Task<ICollection<QuestionViewModel>> GetAll(FilterModel filter)
         {
             var foundQuestions = await Entities.Where(q => q.IsDeleted == filter.IsDeleted).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionNotFound);
@@ -62,7 +62,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Create(QuestionCreateModel request)
+        public async Task<bool> CreateQuestion(QuestionCreateModel request)
         {
             try
             {

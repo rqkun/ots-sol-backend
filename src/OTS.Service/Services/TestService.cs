@@ -19,33 +19,33 @@ namespace OTS.Service.Services
 
         public async Task<TestViewModel> GetById(Guid request)
         {
-            var foundTest = await _testRepository.FindById(request);
+            var foundTest = await _testRepository.Get(request);
             return await Task.FromResult(foundTest);
         }
          
         public async Task<AllTestViewModel> GetAll(FilterModel filter, int page, int limit)
         {
-            var foundTests = await _testRepository.FindAll(filter, page, limit);
+            var foundTests = await _testRepository.Get(filter, page, limit);
             return await Task.FromResult(foundTests);
         }
         public async Task<bool> Create(TestCreateModel request)
         {
             _ = await _userRepository.Get(request.CreatorId);
             request.CreateDate = DateTime.Now;
-            await _testRepository.Create(request);
+            await _testRepository.CreateTest(request);
             return await Task.FromResult(true);
         }
 
         public async Task<bool> Update(TestUpdateModel request)
         {
-            _ = await _testRepository.FindById(request.TestId);
+            _ = await _testRepository.Get(request.TestId);
             await _testRepository.UpdateTest(request);
             return await Task.FromResult(true);
         }
 
         public async Task<bool> Delete(TestModel request)
         {
-            _ = await _testRepository.FindById(request.TestId);
+            _ = await _testRepository.Get(request.TestId);
             await _testRepository.DeleteTest(request);
             return await Task.FromResult(true);
         }

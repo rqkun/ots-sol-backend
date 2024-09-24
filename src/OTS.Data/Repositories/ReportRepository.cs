@@ -28,7 +28,7 @@ namespace OTS.Data.Repositories
             this._dbContext = dbContext;
         }
 
-        public async Task<ReportViewModel> FindById(Guid request)
+        public async Task<ReportViewModel> Get(Guid request)
         {
             var foundReport = this.GetById(request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.ReportNotFound);
@@ -44,7 +44,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<AllReportViewModel> FindAll(FilterModel filter, int page, int limit)
+        public async Task<AllReportViewModel> GetAll(FilterModel filter, int page, int limit)
         {
             page = page != 0 ? page : 1;
             limit = limit != 0 ? limit : 10;
@@ -76,7 +76,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Create(ReportCreateModel request)
+        public async Task<bool> CreateReport(ReportCreateModel request)
         {
             try
             {

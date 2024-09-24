@@ -19,34 +19,34 @@ namespace OTS.Service.Services
 
         public async Task<ReportViewModel> GetById(Guid request)
         {
-            var foundReport = await _reportRepository.FindById(request);
+            var foundReport = await _reportRepository.Get(request);
             return await Task.FromResult(foundReport);
         }
 
         public async Task<AllReportViewModel> GetAll(FilterModel filter, int page, int limit)
         {
-            var foundReports = await _reportRepository.FindAll(filter, page, limit);
+            var foundReports = await _reportRepository.GetAll(filter, page, limit);
             return await Task.FromResult(foundReports);
         }
 
         public async Task<bool> Create(ReportCreateModel request)
         {
-            _ = await _testRepository.FindById(request.TestId);
+            _ = await _testRepository.Get(request.TestId);
             request.ReportDate = DateTime.Now;
-            await _reportRepository.Create(request);
+            await _reportRepository.CreateReport(request);
             return await Task.FromResult(true);
         }
 
         public async Task<bool> Update(ReportUpdateModel request)
         {
-            _ = await _testRepository.FindById(request.TestId);
+            _ = await _testRepository.Get(request.TestId);
             await _reportRepository.UpdateReport(request);
             return await Task.FromResult(true);
         }
 
         public async Task<bool> Delete(ReportModel request)
         {
-            _ = await _testRepository.FindById(request.TestId);
+            _ = await _testRepository.Get(request.TestId);
             request.ReportDate = DateTime.Now;
             await _reportRepository.DeleteReport(request);
             return await Task.FromResult(true);

@@ -29,7 +29,7 @@ namespace OTS.Data.Repositories
             this._dbContext = dbContext;
         }
 
-        public async Task<TestViewModel> FindById(Guid request)
+        public async Task<TestViewModel> Get(Guid request)
         {
             var foundTest = await Entities
                 .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers) 
@@ -47,7 +47,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<AllTestViewModel> FindByCode(string request, int page, int limit)
+        public async Task<AllTestViewModel> Get(string request, int page, int limit)
         {
             page = page != 0 ? page : 1;
             limit = limit != 0 ? limit : 10;
@@ -81,7 +81,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<AllTestViewModel> FindAll(FilterModel filter, int page, int limit)
+        public async Task<AllTestViewModel> Get(FilterModel filter, int page, int limit)
         {
             page = page != 0 ? page : 1;
             limit = limit != 0 ? limit : 10;
@@ -115,7 +115,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Create(TestCreateModel request)
+        public async Task<bool> CreateTest(TestCreateModel request)
         {
             try
             {

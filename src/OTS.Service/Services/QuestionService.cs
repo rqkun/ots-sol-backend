@@ -21,50 +21,50 @@ namespace OTS.Service.Services
 
         public async Task<QuestionViewModel> GetById(Guid request)
         {
-            var foundQuestion = await _questionRepository.FindById(request);
+            var foundQuestion = await _questionRepository.Get(request);
             return await Task.FromResult(foundQuestion);
         }
 
         public async Task<ICollection<QuestionViewModel>> GetAll(FilterModel filter)
         {
-            var foundQuestions = await _questionRepository.FindAll(filter);
+            var foundQuestions = await _questionRepository.GetAll(filter);
             return await Task.FromResult(foundQuestions);
         }
 
         public async Task<bool> Create(QuestionCreateModel request)
         {
-            await _questionRepository.Create(request);
+            await _questionRepository.CreateQuestion(request);
             return await Task.FromResult(true);
         }
 
         public async Task<bool> Update(QuestionUpdateModel request)
         {
-            _ = await _questionRepository.FindById(request.QuestionId);
+            _ = await _questionRepository.Get(request.QuestionId);
             await _questionRepository.UpdateQuestion(request);
             return await Task.FromResult(true);
         }
 
         public async Task<bool> Delete(QuestionModel request)
         {
-            _ = await _questionForTestRepository.FindById(request.QuestionId);
+            _ = await _questionForTestRepository.Get(request.QuestionId);
             await _questionRepository.DeleteQuestion(request);
             return await Task.FromResult(true);
         }
 
         public async Task<bool> AddToTest(QuestionForTestCreateModel request)
         {
-            _ = await _testRepository.FindById(request.TestId);
-            _ = await _questionRepository.FindById(request.QuestionId);
-            await _questionForTestRepository.Create(request);
+            _ = await _testRepository.Get(request.TestId);
+            _ = await _questionRepository.Get(request.QuestionId);
+            await _questionForTestRepository.CreateQFT(request);
             return await Task.FromResult(true);
         }
 
         public async Task<bool> DeleteFromTest(QuestionForTestModel request)
         {
-            _ = await _testRepository.FindById(request.TestId);
-            _ = await _questionRepository.FindById(request.QuestionId);
-            var foundQFT = await _questionForTestRepository.FindByQuestionAndTestId(request.QuestionId, request.TestId);
-            await _questionForTestRepository.Delete(foundQFT);
+            _ = await _testRepository.Get(request.TestId);
+            _ = await _questionRepository.Get(request.QuestionId);
+            var foundQFT = await _questionForTestRepository.Get(request.QuestionId, request.TestId);
+            await _questionForTestRepository.DeleteQFT(foundQFT);
             return await Task.FromResult(true);
         }
     }

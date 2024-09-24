@@ -25,7 +25,7 @@ namespace OTS.Data.Repositories
             this._dbContext = dbContext;
         }
 
-        public async Task<QuestionForTestViewModel> FindById(Guid request)
+        public async Task<QuestionForTestViewModel> Get(Guid request)
         {
             var foundQFT = this.GetById(request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionForTestNotFound);
@@ -41,7 +41,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<QuestionForTestModel> FindByQuestionAndTestId(Guid questionId, Guid testId)
+        public async Task<QuestionForTestModel> Get(Guid questionId, Guid testId)
         {
             var foundQFT = await Entities.Where(qft => qft.IsDeleted == false).FirstOrDefaultAsync(qft => qft.QuestionId == questionId && qft.TestId == testId) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionForTestNotFound);
@@ -57,7 +57,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<ICollection<QuestionForTestViewModel>> FindAll(FilterModel filter)
+        public async Task<ICollection<QuestionForTestViewModel>> GetAll(FilterModel filter)
         {
             var foundQFTs = await Entities.Where(qft => qft.IsDeleted == filter.IsDeleted).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionForTestNotFound);
@@ -78,7 +78,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Create(QuestionForTestCreateModel request)
+        public async Task<bool> CreateQFT(QuestionForTestCreateModel request)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Update(QuestionForTestModel request)
+        public async Task<bool> UpdateQFT(QuestionForTestModel request)
         {
             var foundQFT = await Entities.Where(qft => qft.IsDeleted == false).FirstOrDefaultAsync(qft => qft.QuestionForTestId == request.QuestionForTestId) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionForTestNotFound);
@@ -115,7 +115,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Delete(QuestionForTestModel request)
+        public async Task<bool> DeleteQFT(QuestionForTestModel request)
         {
             var foundQFT = await Entities.Where(qft => qft.IsDeleted == false).FirstOrDefaultAsync(qft => qft.QuestionForTestId == request.QuestionForTestId) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.QuestionForTestNotFound);

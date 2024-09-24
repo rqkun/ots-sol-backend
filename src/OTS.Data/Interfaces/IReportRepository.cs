@@ -6,9 +6,9 @@ namespace OTS.Data.Interfaces
 {
     public interface IReportRepository
     {
-        Task<ReportViewModel> FindById(Guid request);
-        Task<AllReportViewModel> FindAll(FilterModel filter, int page, int limit);
-        Task<bool> Create(ReportCreateModel request);
+        Task<ReportViewModel> Get(Guid request);
+        Task<AllReportViewModel> GetAll(FilterModel filter, int page, int limit);
+        Task<bool> CreateReport(ReportCreateModel request);
         Task<bool> UpdateReport(ReportUpdateModel request);
         Task<bool> DeleteReport(ReportModel request);
     }
