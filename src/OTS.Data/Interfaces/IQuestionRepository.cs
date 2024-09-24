@@ -6,9 +6,9 @@ namespace OTS.Data.Interfaces
 {
     public interface IQuestionRepository
     {
-        Task<QuestionViewModel> FindById(Guid request);
-        Task<ICollection<QuestionViewModel>> FindAll(FilterModel filter);
-        Task<bool> Create(QuestionCreateModel request);
+        Task<QuestionViewModel> Get(Guid request);
+        Task<ICollection<QuestionViewModel>> GetAll(FilterModel filter);
+        Task<bool> CreateQuestion(QuestionCreateModel request);
         Task<bool> UpdateQuestion(QuestionUpdateModel request);
         Task<bool> DeleteQuestion(QuestionModel request);
     }

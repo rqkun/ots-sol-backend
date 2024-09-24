@@ -12,7 +12,7 @@ namespace OTS.Data
         Task Add(TEntity entity);
         Task Add(IEnumerable<TEntity> entities);
 
-        TEntity GetById(object id);
+        TEntity? GetById(object id);
 
         IQueryable<TEntity> GetAll();
 

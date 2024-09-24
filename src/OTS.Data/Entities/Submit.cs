@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace OTS.Data.Entities
 {
@@ -19,27 +20,30 @@ namespace OTS.Data.Entities
         [ForeignKey("TestId")]
         public virtual Test? Tests { get; set; }
 
+        public string? Answers { get; set; }
         public double Score { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        // public virtual ICollection<SubmittedAnswer> SubmittedAnswers { get; set; } = new List<SubmittedAnswer>();
     }
 
-    [Table("SubmittedAnswer")]
-    public class SubmittedAnswer
-    {
-        [Key]
-        public Guid SubmittedAnswerId { get; set; }
+    //[Table("SubmittedAnswer")]
+    //public class SubmittedAnswer
+    //{
+    //    [Key]
+    //    public Guid SubmittedAnswerId { get; set; }
 
-        [Required]
-        public Guid SubmitId { get; set; }
-        [ForeignKey("SubmitId")]
-        public virtual Submit? Submit { get; set; }
+    //    [Required]
+    //    public Guid SubmitId { get; set; }
+    //    [ForeignKey("SubmitId")]
+    //    public virtual Submit? Submit { get; set; }
 
-        [Required]
-        public Guid AnswerId { get; set; }
-        [ForeignKey("AnswerId")]
-        public virtual Answer? Answer { get; set; }
+    //    [Required]
+    //    public Guid AnswerId { get; set; }
+    //    [ForeignKey("AnswerId")]
+    //    public virtual Answer? Answer { get; set; }
 
-        public bool IsDeleted { get; set; }
-    }
+    //    public bool IsDeleted { get; set; }
+    //}
 }

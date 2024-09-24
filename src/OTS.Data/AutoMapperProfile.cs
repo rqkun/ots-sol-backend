@@ -25,12 +25,18 @@ namespace OTS.Data
             CreateMap<Test, TestViewModel>()
                 .ForMember(destination => destination.TestId,
                     option => option.MapFrom(source => source.TestId))
+                .ForMember(destination => destination.Title,
+                    option => option.MapFrom(source => source.Title))
                 .ForMember(destination => destination.CreatorId,
                     option => option.MapFrom(source => source.CreatorId))
                 .ForMember(destination => destination.CreateDate,
                     option => option.MapFrom(source => source.CreateDate))
                 .ForMember(destination => destination.EndDate,
-                    option => option.MapFrom(source => source.EndDate));
+                    option => option.MapFrom(source => source.EndDate))
+                .ForMember(destination => destination.TestCode,
+                    option => option.MapFrom(source => source.TestCode))
+                .ForMember(destination => destination.QuestionForTestViewModels,
+                    option => option.MapFrom(source => source.QuestionForTests));
             #endregion
 
 
@@ -53,11 +59,17 @@ namespace OTS.Data
             CreateMap<QuestionForTestCreateModel, QuestionForTest>();
             CreateMap<QuestionForTestModel, QuestionForTest>();
 
+            CreateMap<QuestionForTestViewModel, QuestionForTest>();
+
             CreateMap<QuestionForTest, QuestionForTestViewModel>()
                 .ForMember(destination => destination.QuestionForTestId,
                     option => option.MapFrom(source => source.QuestionForTestId))
                 .ForMember(destination => destination.TestId,
-                    option => option.MapFrom(source => source.TestId));
+                    option => option.MapFrom(source => source.TestId))
+                .ForMember(destination => destination.QuestionId,
+                    option => option.MapFrom(source => source.QuestionId))
+                .ForMember(destination => destination.QuestionViewModel,
+                    option => option.MapFrom(source => source.Question));
             #endregion
 
 
@@ -72,7 +84,9 @@ namespace OTS.Data
                 .ForMember(destination => destination.QuestionNo,
                     option => option.MapFrom(source => source.QuestionNo))
                 .ForMember(destination => destination.QuestionDetail,
-                    option => option.MapFrom(source => source.Detail));
+                    option => option.MapFrom(source => source.Detail))
+                .ForMember(destination => destination.AnswerViewModels,
+                    option => option.MapFrom(source => source.Answers));
             #endregion
 
 
@@ -112,6 +126,24 @@ namespace OTS.Data
             #region Blacklist
             CreateMap<BlacklistModel, Blacklist>();
             CreateMap<Blacklist, BlacklistModel>();
+            #endregion
+
+            #region Report
+            CreateMap<ReportCreateModel, Report>();
+            CreateMap<ReportUpdateModel, Report>();
+            CreateMap<ReportModel, Report>();
+
+            CreateMap<Report, ReportViewModel>()
+                .ForMember(destination => destination.ReportId,
+                    option => option.MapFrom(source => source.ReportId))
+                .ForMember(destination => destination.TestId,
+                    option => option.MapFrom(source => source.TestId))
+                .ForMember(destination => destination.ReportDate,
+                    option => option.MapFrom(source => source.ReportDate))
+                .ForMember(destination => destination.Reason,
+                    option => option.MapFrom(source => source.Reason))
+                .ForMember(destination => destination.IsDeleted,
+                    option => option.MapFrom(source => source.IsDeleted));
             #endregion
         }
     }

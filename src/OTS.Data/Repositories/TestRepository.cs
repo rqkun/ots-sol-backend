@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Formats.Tar;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,24 +29,11 @@ namespace OTS.Data.Repositories
             this._dbContext = dbContext;
         }
 
-        public async Task<Test> GetEntity(Guid id)
+        public async Task<TestViewModel> Get(Guid request)
         {
-            var foundEntity = await Entities.FirstOrDefaultAsync(t => t.TestId == id) ??
-                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
-            try
-            {
-                return await Task.FromResult<Test>(foundEntity); // Return true if the operation succeeds
-            }
-            catch (Exception ex)
-            {
-                // Handle or log the exception as needed
-                throw new Exception(ex.Message); // Return error message
-            }
-        }
-
-        public async Task<TestViewModel> FindById(Guid request)
-        {
-            var foundTest = await Entities.Where(t => t.IsDeleted == false).FirstOrDefaultAsync(t => t.TestId == request) ??
+            var foundTest = await Entities
+                .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers) 
+                .FirstOrDefaultAsync(t => t.TestId == request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
             {
@@ -59,9 +47,47 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<ICollection<TestViewModel>> FindAll(FilterModel filter)
+        public async Task<AllTestViewModel> Get(string request, int page, int limit)
         {
-            var foundTests = await Entities.Where(t => t.IsDeleted == filter.IsDeleted).ToListAsync() ??
+            page = page != 0 ? page : 1;
+            limit = limit != 0 ? limit : 10;
+            var foundTests = await Entities
+                .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers)
+                .Where(t => t.IsDeleted == false && t.TestCode.Contains(request)).ToListAsync() ??
+                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
+            try
+            {
+                var testList = new List<TestViewModel>();
+                foreach (var test in foundTests)
+                {
+                    var obj = _mapper.Map<TestViewModel>(test);
+                    testList.Add(obj);
+                }
+                int totalCount = testList.Count;
+                testList = testList.Skip((page - 1) * limit).Take(limit).ToList();
+                AllTestViewModel result = new AllTestViewModel()
+                {
+                    Total = totalCount,
+                    Page = page,
+                    Limit = limit,
+                    TestViewModels = testList
+                };
+                return await Task.FromResult(result); // Return true if the operation succeeds
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception as needed
+                throw new Exception(ex.Message); // Return error message
+            }
+        }
+
+        public async Task<AllTestViewModel> Get(FilterModel filter, int page, int limit)
+        {
+            page = page != 0 ? page : 1;
+            limit = limit != 0 ? limit : 10;
+            var foundTests = await Entities
+                .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers)
+                .Where(t => t.IsDeleted == filter.IsDeleted).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
             {
@@ -71,7 +97,16 @@ namespace OTS.Data.Repositories
                     var obj = _mapper.Map<TestViewModel>(test);
                     testList.Add(obj);
                 }
-                return await Task.FromResult(testList); // Return true if the operation succeeds
+                int totalCount = testList.Count;
+                testList = testList.Skip((page -1) * limit).Take(limit).ToList();
+                AllTestViewModel result = new AllTestViewModel()
+                {
+                    Total = totalCount,
+                    Page = page,
+                    Limit = limit,
+                    TestViewModels = testList
+                };
+                return await Task.FromResult(result); // Return true if the operation succeeds
             }
             catch (Exception ex)
             {
@@ -80,7 +115,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Create(TestCreateModel request)
+        public async Task<bool> CreateTest(TestCreateModel request)
         {
             try
             {

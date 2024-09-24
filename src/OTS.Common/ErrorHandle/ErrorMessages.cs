@@ -55,6 +55,10 @@ namespace OTS.Common.ErrorHandle
             public const string QuestionForTestNotFound = "Question for test does not exist.";
             public const string QuestionNotFound = "Question does not exist.";
             #endregion
+
+            #region Report
+            public const string ReportNotFound = "Report does not exist.";
+            #endregion
         }
         public static class LoginMessage
         {

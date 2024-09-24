@@ -25,24 +25,9 @@ namespace OTS.Data.Repositories
             this._dbContext = dbContext;
         }
 
-        public async Task<Answer> GetEntity(Guid id)
+        public async Task<AnswerViewModel> Get(Guid request)
         {
-            var foundEntity = await Entities.FirstOrDefaultAsync(a => a.AnswerId == id) ??
-                throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.AnswerNotFound);
-            try
-            {
-                return await Task.FromResult<Answer>(foundEntity); // Return true if the operation succeeds
-            }
-            catch (Exception ex)
-            {
-                // Handle or log the exception as needed
-                throw new Exception(ex.Message); // Return error message
-            }
-        }
-
-        public async Task<AnswerViewModel> FindById(Guid request)
-        {
-            var foundAnswer = await Entities.Where(a => a.IsDeleted == false).FirstOrDefaultAsync(a => a.AnswerId == request) ??
+            var foundAnswer = this.GetById(request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.AnswerNotFound);
             try
             {
@@ -56,7 +41,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<ICollection<AnswerViewModel>> FindAll(FilterModel filter)
+        public async Task<ICollection<AnswerViewModel>> GetAll(FilterModel filter)
         {
             var foundAnswers = await Entities.Where(a => a.IsDeleted == filter.IsDeleted).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.AnswerNotFound);
@@ -77,7 +62,7 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<bool> Create(AnswerCreateModel request)
+        public async Task<bool> CreateAnswer(AnswerCreateModel request)
         {
             try
             {

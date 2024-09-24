@@ -15,6 +15,7 @@ namespace OTS.Data.Entities
 
         [Column("IsDeleted")]
         public bool IsDeleted {  get; set; }
+        public virtual ICollection<Submit> Submits { get; set; } = new List<Submit>();
 
     }
 }

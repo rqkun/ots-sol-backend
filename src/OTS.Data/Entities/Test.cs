@@ -16,10 +16,16 @@ namespace OTS.Data.Entities
         
         public virtual User? Creator { get; set; }
         
+        public string? Title { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
 
+        public string? TestCode { get; set; }
+
         public bool IsDeleted { get; set; }
+
+        public virtual ICollection<QuestionForTest> QuestionForTests { get; set; } = new List<QuestionForTest>();
+        public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
     }
 
     [Table("Question")]
@@ -33,6 +39,9 @@ namespace OTS.Data.Entities
         public string? Detail { get; set; }
         
         public bool IsDeleted { get; set; }
+
+        public virtual ICollection<QuestionForTest> QuestionForTests { get; set; } = new List<QuestionForTest>();
+        public virtual ICollection<Answer> Answers { get; set; } = new List<Answer>();
     }
 
     [Table("QuestionForTest")]
@@ -71,5 +80,7 @@ namespace OTS.Data.Entities
         public bool IsCorrect { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        // public ICollection<SubmittedAnswer> SubmittedAnswers { get; set; } = new List<SubmittedAnswer>();
     }
 }

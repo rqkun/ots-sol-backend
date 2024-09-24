@@ -2,51 +2,51 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OTS.Data.Models;
+using OTS.Service.Services;
 
 namespace OTS.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class TestController : ControllerBase
+    public class ReportController : ControllerBase
     {
-        private readonly ITestService _testService;
-        public TestController(ITestService testService)
+        private readonly IReportService _reportService;
+        public ReportController(IReportService reportService)
         {
-            this._testService = testService;
+            this._reportService = reportService;
         }
-
         [HttpGet("[action]")]
         public async Task<IActionResult> GetById(Guid request)
         {
-            var result = await _testService.GetById(request);
+            var result = await _reportService.GetById(request);
             return Ok(result);
         }
 
         [HttpPost("[action]")]
         public async Task<IActionResult> GetAll(FilterModel filter, int page, int limit)
         {
-            var result = await _testService.GetAll(filter, page, limit);
+            var result = await _reportService.GetAll(filter, page, limit);
             return Ok(result);
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> Create(TestCreateModel request)
+        public async Task<IActionResult> Create(ReportCreateModel request)
         {
-            var result = await _testService.Create(request);
+            var result = await _reportService.Create(request);
             return Ok(result);
         }
 
         [HttpPut("[action]")]
-        public async Task<IActionResult> Update(TestUpdateModel request)
+        public async Task<IActionResult> Update(ReportUpdateModel request)
         {
-            var result = await _testService.Update(request);
+            var result = await _reportService.Update(request);
             return Ok(result);
         }
 
         [HttpDelete("[action]")]
-        public async Task<IActionResult> Delete(TestModel request)
+        public async Task<IActionResult> Delete(ReportModel request)
         {
-            var result = await _testService.Delete(request);
+            var result = await _reportService.Delete(request);
             return Ok(result);
         }
     }
