@@ -25,18 +25,16 @@ namespace OTS.Data.Repositories
     public class UserRepository : Repository<User>, IUserRepository
     {
         //private readonly IUnitOfWork _uow;
-        private readonly IConfiguration _conf;
         private readonly IMapper _mapper;
         protected readonly OTsystemDB _dbContext;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        public UserRepository(OTsystemDB dbContext, UserManager<User> userManager, SignInManager<User> signinManager, IMapper mapper, IConfiguration configuration) : base(dbContext)
+        public UserRepository(OTsystemDB dbContext, UserManager<User> userManager, SignInManager<User> signinManager, IMapper mapper) : base(dbContext)
         {
             //this._uow = uow;
             this._mapper = mapper;
             this._dbContext = dbContext;
             this._userManager = userManager;
-            this._conf = configuration;
             this._signInManager = signinManager;
         }
         public async Task<UserModel> Get(Guid request)
@@ -56,7 +54,7 @@ namespace OTS.Data.Repositories
         }
         public async Task<UserModel> Get(string request)
         {
-            var foundUser =  _userManager.FindByEmailAsync(request) ??
+            var foundUser =  await _userManager.FindByEmailAsync(request) ??
                 throw new KeyNotFoundException(KeyNotFoundMessage.UserNotFound);
             try
             {
@@ -114,6 +112,12 @@ namespace OTS.Data.Repositories
             }
 
         }
+
+        public async Task<IdentityResult> Delete(Guid id)
+        {
+            var result = await _userManager.DeleteAsync(this.GetById(id));
+            return result;
+        }
         public async Task<IdentityResult> SignUp(SignUpModel req)
         {
             var user = _mapper.Map<User>(req);
@@ -125,11 +129,39 @@ namespace OTS.Data.Repositories
             }
             else return createdUser;
         }
-
-        public async Task<IdentityResult> Delete(Guid id)
+        public async Task<UserModel> SignIn(SignInModel model)
         {
-            var result = await _userManager.DeleteAsync(this.GetById(id));
-            return result;
+            var user = await _userManager.FindByEmailAsync(model.Email) ?? throw new SignInException(LoginMessage.InvalidCredentials);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+            if (!result.Succeeded) {
+                throw new SignInException(LoginMessage.InvalidCredentials);
+            }
+            try
+            {
+                var userModel = _mapper.Map<UserModel>(user);
+                return userModel;
+            }
+            catch (Exception e){
+                throw new Exception(e.Message); // Return error message
+            }
+            
+        }
+
+        public async Task<bool> UpdateAvatar(string email, string seed)
+        {
+            var user = await _userManager.FindByEmailAsync(email) ?? throw new SignInException(LoginMessage.InvalidCredentials);
+            try
+            {
+                var oldUser = user;
+                user.AvatarSeed = seed;
+                await this.Update(oldUser, user);
+                return await Task.FromResult(true);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            
         }
     }
 }

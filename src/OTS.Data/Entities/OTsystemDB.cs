@@ -68,17 +68,20 @@ namespace OTS.Data.Entities
             //    .OnDelete(DeleteBehavior.Restrict);
 
 
-            List<IdentityRole> roleList = new List<IdentityRole> {
-                new IdentityRole
+            List<Role> roleList = new List<Role> {
+                new Role
                 {
+                    Id = Guid.NewGuid(),
                     Name ="Admin",
                     NormalizedName="admin"
                 },
-                new IdentityRole {
+                new Role {
+                    Id = Guid.NewGuid(),
                     Name="Moderator",
                     NormalizedName = "moderator"
                 },
-                new IdentityRole {
+                new Role {
+                    Id = Guid.NewGuid(),
                     Name ="User",
                     NormalizedName="user"
                 }
@@ -93,9 +96,10 @@ namespace OTS.Data.Entities
             }
             modelBuilder.Entity<User>().Property(i => i.Id).HasColumnName("UserId");
             modelBuilder.Entity<Role>().Property(i => i.Id).HasColumnName("RoleId");
-            modelBuilder.Entity<IdentityRole>().HasData(roleList);
-            //modelBuilder.Seed();
+            modelBuilder.Entity<Role>().HasData(roleList);
             
+            //modelBuilder.Seed();
+
             OnModelCreatingPartial(modelBuilder);
             #region Test NEWID()
 

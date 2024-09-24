@@ -1,15 +1,19 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using OTS.Common.ErrorHandle;
 using OTS.Data;
 using OTS.Data.Entities;
 using OTS.Service;
 using OTS.Service.Interfaces;
 using OTS.Service.Services;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -29,55 +33,53 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-/*
- builder.Services.AddSwaggerGen(op =>
+
+builder.Services.AddSwaggerGen(option =>
 {
-    op.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
         Name = "Authorization",
         Type = SecuritySchemeType.Http,
         BearerFormat = "JWT",
         Scheme = "Bearer"
     });
-    op.AddSecurityRequirement(new OpenApiSecurityRequirement
+    option.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
             new OpenApiSecurityScheme
             {
                 Reference = new OpenApiReference
                 {
-                    Type = ReferenceType.SecurityScheme,
+                    Type=ReferenceType.SecurityScheme,
                     Id="Bearer"
                 }
             },
             new string[]{}
         }
     });
-
-});
-*/
-
-builder.Services.AddIdentity<User, Role>()
-    .AddEntityFrameworkStores<OTsystemDB>().AddDefaultTokenProviders();
-
-builder.Services.AddDbContext<OTsystemDB>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddIdentity<User, Role>(options => { 
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 8;
+}).AddEntityFrameworkStores<OTsystemDB>().AddDefaultTokenProviders();
 
-// builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-/*
 builder.Services.AddAuthentication(options => {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options => {
+    options.DefaultAuthenticateScheme =
+    options.DefaultChallengeScheme = 
+    options.DefaultForbidScheme =
+    options.DefaultScheme = 
+    options.DefaultSignInScheme =
+    options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
+
+}).AddJwtBearer(options =>
+{
     options.SaveToken = true;
     options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
@@ -88,7 +90,20 @@ builder.Services.AddAuthentication(options => {
         ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
     };
-});*/
+});
+
+builder.Services.AddDbContext<OTsystemDB>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+
+
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
+builder.Services.AddAutoMapper(typeof(Program));
+
+// builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 builder.Services.Configure<DataProtectionTokenProviderOptions>(opt =>
@@ -115,7 +130,7 @@ builder.Services.Configure<FormOptions>(o =>
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    options.SignIn.RequireConfirmedEmail = true;
+    options.SignIn.RequireConfirmedEmail = false;
 });
 
 // Register the Service
@@ -140,6 +155,7 @@ app.UseRouting();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
