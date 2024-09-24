@@ -25,6 +25,8 @@ namespace OTS.Data
             CreateMap<Test, TestViewModel>()
                 .ForMember(destination => destination.TestId,
                     option => option.MapFrom(source => source.TestId))
+                .ForMember(destination => destination.Title,
+                    option => option.MapFrom(source => source.Title))
                 .ForMember(destination => destination.CreatorId,
                     option => option.MapFrom(source => source.CreatorId))
                 .ForMember(destination => destination.CreateDate,

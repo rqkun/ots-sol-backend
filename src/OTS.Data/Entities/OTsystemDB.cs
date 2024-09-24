@@ -28,7 +28,7 @@ namespace OTS.Data.Entities
 
         #region Submit Dbsets
         public DbSet<Submit> Submits { get; set; }
-        public DbSet<SubmittedAnswer> SubmittedAnswers { get; set; }
+        // public DbSet<SubmittedAnswer> SubmittedAnswers { get; set; }
         #endregion
 
         #region Role Dbsets
@@ -52,6 +52,22 @@ namespace OTS.Data.Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Retrict cascade
+            foreach (var type in modelBuilder.Model.GetEntityTypes())
+            {
+                var foreignKeys = type.GetForeignKeys();
+                foreach (var foreignKey in foreignKeys)
+                {
+                    foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+                }
+            }
+            //modelBuilder.Entity<Submit>()
+            //    .HasOne(s => s.User)
+            //    .WithMany(u => u.Submits)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+
             List<IdentityRole> roleList = new List<IdentityRole> {
                 new IdentityRole
                 {
@@ -101,9 +117,9 @@ namespace OTS.Data.Entities
             modelBuilder.Entity<Submit>()
             .Property(b => b.SubmitId)
             .HasDefaultValueSql("NEWID()");
-            modelBuilder.Entity<SubmittedAnswer>()
-            .Property(b => b.SubmittedAnswerId)
-            .HasDefaultValueSql("NEWID()");
+            //modelBuilder.Entity<SubmittedAnswer>()
+            //.Property(b => b.SubmittedAnswerId)
+            //.HasDefaultValueSql("NEWID()");
             #endregion
 
             #region Blacklist NEWID()
@@ -131,9 +147,9 @@ namespace OTS.Data.Entities
             modelBuilder.Entity<Submit>()
             .Property(a => a.IsDeleted)
             .HasDefaultValue(false);
-            modelBuilder.Entity<SubmittedAnswer>()
-            .Property(c => c.IsDeleted)
-            .HasDefaultValue(false);
+            //modelBuilder.Entity<SubmittedAnswer>()
+            //.Property(c => c.IsDeleted)
+            //.HasDefaultValue(false);
             #endregion
 
             #region User IsDeleted

@@ -4,6 +4,7 @@
     public class TestViewModel
     {
         public Guid TestId { get; set; }
+        public string? Title { get; set; }
         public Guid CreatorId { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }

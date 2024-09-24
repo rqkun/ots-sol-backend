@@ -16,6 +16,7 @@ namespace OTS.Data.Entities
         
         public virtual User? Creator { get; set; }
         
+        public string? Title { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
 
@@ -80,6 +81,6 @@ namespace OTS.Data.Entities
 
         public bool IsDeleted { get; set; }
 
-        public ICollection<SubmittedAnswer> SubmittedAnswers { get; set; } = new List<SubmittedAnswer>();
+        // public ICollection<SubmittedAnswer> SubmittedAnswers { get; set; } = new List<SubmittedAnswer>();
     }
 }

@@ -4,6 +4,7 @@
     public class TestModel
     {
         public Guid TestId { get; set; }
+        public string? Title { get; set; }
         public Guid CreatorId { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -11,6 +12,7 @@
     }
     public class TestCreateModel
     {
+        public string? Title { get; set; }
         public Guid CreatorId { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -19,6 +21,7 @@
     public class TestUpdateModel
     {
         public Guid TestId { get; set; }
+        public string? Title { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
         public string? TestCode { get; set; }

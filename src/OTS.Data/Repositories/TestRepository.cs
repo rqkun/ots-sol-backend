@@ -31,7 +31,9 @@ namespace OTS.Data.Repositories
 
         public async Task<TestViewModel> FindById(Guid request)
         {
-            var foundTest = this.GetById(request) ??
+            var foundTest = await Entities
+                .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers) 
+                .FirstOrDefaultAsync(t => t.TestId == request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
             {
@@ -49,7 +51,9 @@ namespace OTS.Data.Repositories
         {
             page = page != 0 ? page : 1;
             limit = limit != 0 ? limit : 10;
-            var foundTests = await Entities.Where(t => t.IsDeleted == false && t.TestCode.Contains(request)).ToListAsync() ??
+            var foundTests = await Entities
+                .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers)
+                .Where(t => t.IsDeleted == false && t.TestCode.Contains(request)).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
             {
