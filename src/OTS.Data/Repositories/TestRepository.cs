@@ -47,13 +47,13 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<AllTestViewModel> Get(string request, int page, int limit)
+        public async Task<AllTestViewModel> GetByCode(FilterModel filter)
         {
-            page = page != 0 ? page : 1;
-            limit = limit != 0 ? limit : 10;
+            filter.Page = filter.Page != 0 ? filter.Page : 1;
+            filter.Limit = filter.Limit != 0 ? filter.Limit : 10;
             var foundTests = await Entities
                 .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers)
-                .Where(t => t.IsDeleted == false && t.TestCode.Contains(request)).ToListAsync() ??
+                .Where(t => t.IsDeleted == false && t.TestCode.Contains(filter.Key)).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
             {
@@ -64,12 +64,12 @@ namespace OTS.Data.Repositories
                     testList.Add(obj);
                 }
                 int totalCount = testList.Count;
-                testList = testList.Skip((page - 1) * limit).Take(limit).ToList();
+                testList = testList.Skip((filter.Page - 1) * filter.Limit).Take(filter.Limit).ToList();
                 AllTestViewModel result = new AllTestViewModel()
                 {
                     Total = totalCount,
-                    Page = page,
-                    Limit = limit,
+                    Page = filter.Page,
+                    Limit = filter.Limit,
                     TestViewModels = testList
                 };
                 return await Task.FromResult(result); // Return true if the operation succeeds
@@ -81,13 +81,13 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<AllTestViewModel> Get(FilterModel filter, int page, int limit)
+        public async Task<AllTestViewModel> Get(FilterModel filter)
         {
-            page = page != 0 ? page : 1;
-            limit = limit != 0 ? limit : 10;
+            filter.Page = filter.Page != 0 ? filter.Page : 1;
+            filter.Limit = filter.Limit != 0 ? filter.Limit : 10;
             var foundTests = await Entities
                 .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers)
-                .Where(t => t.IsDeleted == filter.IsDeleted).ToListAsync() ??
+                .Where(t => t.IsDeleted == filter.IsDeleted && t.Title.Contains(filter.Key)).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
             {
@@ -98,12 +98,12 @@ namespace OTS.Data.Repositories
                     testList.Add(obj);
                 }
                 int totalCount = testList.Count;
-                testList = testList.Skip((page -1) * limit).Take(limit).ToList();
+                testList = testList.Skip((filter.Page -1) * filter.Limit).Take(filter.Limit).ToList();
                 AllTestViewModel result = new AllTestViewModel()
                 {
                     Total = totalCount,
-                    Page = page,
-                    Limit = limit,
+                    Page = filter.Page,
+                    Limit = filter.Limit,
                     TestViewModels = testList
                 };
                 return await Task.FromResult(result); // Return true if the operation succeeds

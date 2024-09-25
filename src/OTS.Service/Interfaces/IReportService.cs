@@ -8,7 +8,7 @@ namespace OTS.Service.Interfaces
     public interface IReportService
     {
         Task<ReportViewModel> GetById(Guid request);
-        Task<AllReportViewModel> GetAll(FilterModel filter, int page, int limit);
+        Task<AllReportViewModel> GetAll(FilterModel filter);
         Task<bool> Create(ReportCreateModel request);
         Task<bool> Update(ReportUpdateModel request);
         Task<bool> Delete(ReportModel request);

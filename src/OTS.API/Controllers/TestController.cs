@@ -23,9 +23,16 @@ namespace OTS.API.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> GetAll(FilterModel filter, int page, int limit)
+        public async Task<IActionResult> GetByCode(FilterModel filter)
         {
-            var result = await _testService.GetAll(filter, page, limit);
+            var result = await _testService.GetByCode(filter);
+            return Ok(result);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetAll(FilterModel filter)
+        {
+            var result = await _testService.GetAll(filter);
             return Ok(result);
         }
 

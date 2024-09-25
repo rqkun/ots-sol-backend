@@ -22,12 +22,19 @@ namespace OTS.Service.Services
             var foundTest = await _testRepository.Get(request);
             return await Task.FromResult(foundTest);
         }
-         
-        public async Task<AllTestViewModel> GetAll(FilterModel filter, int page, int limit)
+
+        public async Task<AllTestViewModel> GetByCode(FilterModel filter)
         {
-            var foundTests = await _testRepository.Get(filter, page, limit);
+            var foundTests = await _testRepository.GetByCode(filter);
             return await Task.FromResult(foundTests);
         }
+
+        public async Task<AllTestViewModel> GetAll(FilterModel filter)
+        {
+            var foundTests = await _testRepository.Get(filter);
+            return await Task.FromResult(foundTests);
+        }
+
         public async Task<bool> Create(TestCreateModel request)
         {
             _ = await _userRepository.Get(request.CreatorId);

@@ -44,10 +44,10 @@ namespace OTS.Data.Repositories
             }
         }
 
-        public async Task<AllReportViewModel> GetAll(FilterModel filter, int page, int limit)
+        public async Task<AllReportViewModel> GetAll(FilterModel filter)
         {
-            page = page != 0 ? page : 1;
-            limit = limit != 0 ? limit : 10;
+            filter.Page = filter.Page != 0 ? filter.Page : 1;
+            filter.Limit = filter.Limit != 0 ? filter.Limit : 10;
             var foundReports = await Entities.ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.ReportNotFound);
             try
@@ -59,12 +59,12 @@ namespace OTS.Data.Repositories
                     ReportList.Add(obj);
                 }
                 int totalCount = ReportList.Count;
-                ReportList = ReportList.Skip((page - 1) * limit).Take(limit).ToList();
+                ReportList = ReportList.Skip((filter.Page - 1) * filter.Limit).Take(filter.Limit).ToList();
                 AllReportViewModel result = new AllReportViewModel()
                 {
                     Total = totalCount,
-                    Page = page,
-                    Limit = limit,
+                    Page = filter.Page,
+                    Limit = filter.Limit,
                     ReportViewModels = ReportList
                 };
                 return await Task.FromResult(result); // Return true if the operation succeeds

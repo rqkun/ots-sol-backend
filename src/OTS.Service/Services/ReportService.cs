@@ -23,9 +23,9 @@ namespace OTS.Service.Services
             return await Task.FromResult(foundReport);
         }
 
-        public async Task<AllReportViewModel> GetAll(FilterModel filter, int page, int limit)
+        public async Task<AllReportViewModel> GetAll(FilterModel filter)
         {
-            var foundReports = await _reportRepository.GetAll(filter, page, limit);
+            var foundReports = await _reportRepository.GetAll(filter);
             return await Task.FromResult(foundReports);
         }
 
