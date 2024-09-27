@@ -21,7 +21,7 @@ namespace OTS.Service.Services
             this._configuration = configuration;
             this._key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
         }
-        public string CreateToken(SignUpModel user)
+        public string CreateToken(RegisterModel user)
         {
             var claims = new List<Claim>
             {

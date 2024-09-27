@@ -118,7 +118,7 @@ namespace OTS.Data.Repositories
             var result = await _userManager.DeleteAsync(this.GetById(id));
             return result;
         }
-        public async Task<IdentityResult> SignUp(SignUpModel req)
+        public async Task<IdentityResult> Register(RegisterModel req)
         {
             var user = _mapper.Map<User>(req);
             var createdUser = await _userManager.CreateAsync(user, req.Password);
@@ -129,12 +129,12 @@ namespace OTS.Data.Repositories
             }
             else return createdUser;
         }
-        public async Task<UserModel> SignIn(SignInModel model)
+        public async Task<UserModel> Login(LoginModel model)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email) ?? throw new SignInException(LoginMessage.InvalidCredentials);
+            var user = await _userManager.FindByEmailAsync(model.Email) ?? throw new LoginException(LoginMessage.InvalidCredentials);
             var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
             if (!result.Succeeded) {
-                throw new SignInException(LoginMessage.InvalidCredentials);
+                throw new LoginException(LoginMessage.InvalidCredentials);
             }
             try
             {
@@ -149,7 +149,7 @@ namespace OTS.Data.Repositories
 
         public async Task<bool> UpdateAvatar(string email, string seed)
         {
-            var user = await _userManager.FindByEmailAsync(email) ?? throw new SignInException(LoginMessage.InvalidCredentials);
+            var user = await _userManager.FindByEmailAsync(email) ?? throw new LoginException(LoginMessage.InvalidCredentials);
             try
             {
                 var oldUser = user;
@@ -162,6 +162,13 @@ namespace OTS.Data.Repositories
                 throw new Exception(e.Message);
             }
             
+        }
+
+        public async Task<string> GetOTP(UserModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email) ?? throw new LoginException(LoginMessage.InvalidCredentials);
+            var otp = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
+            return await Task.FromResult(otp);
         }
     }
 }

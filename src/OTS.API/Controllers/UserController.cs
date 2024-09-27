@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using OTS.Data.Models;
 using OTS.Service.Interfaces;
 using OTS.Service.Services;
@@ -19,13 +20,14 @@ namespace OTS.API.Controllers
             this._tokenService = tokenService;
         }
 
-        [HttpPost("[action]")]
+        [HttpPost]
+        [Route("register")]
         [AllowAnonymous]
-        public async Task<IActionResult> SignUp(SignUpModel request)
+        public async Task<IActionResult> Register(RegisterModel request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            IdentityResult result = await _userService.SignUp(request);
+            IdentityResult result = await _userService.Register(request);
             if (result.Succeeded)
             {
                 return Ok(
@@ -39,13 +41,14 @@ namespace OTS.API.Controllers
             }
             else return StatusCode(500, result.Errors);
         }
-        [HttpPost("[action]")]
+        [HttpPost]
+        [Route("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> SignIn(SignInModel request)
+        public async Task<IActionResult> Login(LoginModel request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var user = await _userService.SignIn(request);
+            var user = await _userService.Login(request);
             try
             {
                 return Ok(

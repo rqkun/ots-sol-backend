@@ -40,24 +40,24 @@ namespace OTS.Common.ErrorHandle
         {
         }
     }
-    public class SignInException : Exception
+    public class LoginException : Exception
     {
-        public SignInException() : base() { }
+        public LoginException() : base() { }
 
-        public SignInException(string message) : base(message) { }
+        public LoginException(string message) : base(message) { }
 
-        public SignInException(string message, params object[] args)
+        public LoginException(string message, params object[] args)
             : base(string.Format(CultureInfo.CurrentCulture, message, args))
         {
         }
     }
-    public class SignUpException : Exception
+    public class RegisterException : Exception
     {
-        public SignUpException() : base() { }
+        public RegisterException() : base() { }
 
-        public SignUpException(string message) : base(message) { }
+        public RegisterException(string message) : base(message) { }
 
-        public SignUpException(string message, params object[] args)
+        public RegisterException(string message, params object[] args)
             : base(string.Format(CultureInfo.CurrentCulture, message, args))
         {
         }

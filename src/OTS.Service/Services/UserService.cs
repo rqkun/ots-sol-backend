@@ -25,13 +25,13 @@ namespace OTS.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<IdentityResult> SignUp(SignUpModel req)
+        public async Task<IdentityResult> Register(RegisterModel req)
         {
-            return await _userRepository.SignUp(req);
+            return await _userRepository.Register(req);
         }
-        public async Task<UserModel> SignIn(SignInModel req)
+        public async Task<UserModel> Login(LoginModel req)
         {
-            return await _userRepository.SignIn(req);
+            return await _userRepository.Login(req);
         }
         public async Task<UserModel> Get(string email)
         {
@@ -56,6 +56,12 @@ namespace OTS.Service.Services
         public async Task<bool> UpdateAvatar(string email, string seed)
         {
             return await _userRepository.UpdateAvatar(email,seed);
+        }
+
+        public async Task<bool> GetOTP(UserModel user)
+        {
+            var otp= await _userRepository.GetOTP(user);
+            return await Task.FromResult(true);
         }
     }
 }

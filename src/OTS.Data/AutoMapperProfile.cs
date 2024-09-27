@@ -103,7 +103,7 @@ namespace OTS.Data
                     option => option.MapFrom(source => source.Password));
             
 
-            CreateMap<SignUpModel, User>()
+            CreateMap<RegisterModel, User>()
                 .ForMember(destination => destination.UserName,
                     option => option.MapFrom(source => source.Username))
                 .ForMember(destination => destination.PasswordHash,

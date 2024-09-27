@@ -9,7 +9,7 @@ namespace OTS.Service.Interfaces
 {
     public interface ITokenService
     {
-        string CreateToken(SignUpModel user);
+        string CreateToken(RegisterModel user);
         string CreateToken(UserModel user);
     }
 }

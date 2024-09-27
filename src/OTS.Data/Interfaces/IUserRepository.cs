@@ -10,8 +10,8 @@ namespace OTS.Data.Interfaces
 {
     public interface IUserRepository
     {
-        Task<IdentityResult> SignUp(SignUpModel req);
-        Task<UserModel> SignIn(SignInModel model);
+        Task<IdentityResult> Register(RegisterModel req);
+        Task<UserModel> Login(LoginModel model);
         Task<UserModel> Get(Guid request);
         Task<UserModel> Get(string request);
         Task<List<UserModel>> GetAll(FilterModel filter);
@@ -19,5 +19,6 @@ namespace OTS.Data.Interfaces
         Task<bool> ResetPassword(ResetPasswordModel model);
         Task<IdentityResult> Delete(Guid id);
         Task<bool> UpdateAvatar(string email, string seed);
+        Task<string> GetOTP(UserModel user);
     }
 }

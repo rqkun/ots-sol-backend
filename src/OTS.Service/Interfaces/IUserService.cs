@@ -10,12 +10,13 @@ namespace OTS.Service.Interfaces
 {
     public interface IUserService
     {
-        Task<IdentityResult> SignUp(SignUpModel req);
-        Task<UserModel> SignIn(SignInModel req);
+        Task<IdentityResult> Register(RegisterModel req);
+        Task<UserModel> Login(LoginModel req);
         Task<UserModel> Get(string email);
         Task<UserModel> Get(Guid guid);
         Task<List<UserModel>> GetAll(FilterModel filter);
         Task<bool> UpdateAvatar(string email, string seed);
         Task<IdentityResult> Delete(Guid guid);
+        Task<bool> GetOTP(UserModel user);
     }
 }

@@ -27,7 +27,7 @@ namespace OTS.Data.Models
         public string? AvatarSeed { get; set; }
 
     }
-    public class SignUpModel
+    public class RegisterModel
     {
         [Required]
         public string Username { get; set; } = null!;
@@ -37,7 +37,7 @@ namespace OTS.Data.Models
         public string Password { get; set; } = null!;
 
     }
-    public class SignInModel
+    public class LoginModel
     {
         [Required, EmailAddress]
         public string Email { get; set; } = null!;
