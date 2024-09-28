@@ -31,11 +31,13 @@
     public class QuestionModel
     {
         public Guid QuestionId { get; set; }
+        public Guid TestId { get; set;}
         public int QuestionNo { get; set; }
         public string? Detail { get; set; }
     }
     public class QuestionCreateModel
     {
+        public Guid TestId { get; set; }
         public int QuestionNo { get; set; }
         public string? Detail { get; set; }
     }
@@ -46,17 +48,17 @@
     }
 
     // QUESTION FOR TEST
-    public class QuestionForTestModel
-    {
-        public Guid QuestionForTestId { get; set; }
-        public Guid TestId { get; set; }
-        public Guid QuestionId { get; set; }
-    }
-    public class QuestionForTestCreateModel
-    {
-        public Guid TestId { get; set; }
-        public Guid QuestionId { get; set; }
-    }
+    //public class QuestionForTestModel
+    //{
+    //    public Guid QuestionForTestId { get; set; }
+    //    public Guid TestId { get; set; }
+    //    public Guid QuestionId { get; set; }
+    //}
+    //public class QuestionForTestCreateModel
+    //{
+    //    public Guid TestId { get; set; }
+    //    public Guid QuestionId { get; set; }
+    //}
 
     // ANSWER
     public class AnswerModel

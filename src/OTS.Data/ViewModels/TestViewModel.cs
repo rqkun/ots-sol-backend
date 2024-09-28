@@ -9,21 +9,23 @@
         public DateTime CreateDate { get; set; }
         public DateTime EndDate { get; set; }
         public string? TestCode { get; set; }
-        public virtual ICollection<QuestionForTestViewModel> QuestionForTestViewModels { get; set; } = new List<QuestionForTestViewModel>();
+        //public virtual ICollection<QuestionForTestViewModel> QuestionForTestViewModels { get; set; } = new List<QuestionForTestViewModel>();
+        public virtual ICollection<QuestionViewModel> Questions { get; set; } = new List<QuestionViewModel>();
         public bool IsDeleted { get; set; }
     }
-    public class QuestionForTestViewModel
-    {
-        public Guid QuestionForTestId { get; set; }
-        public Guid TestId { get; set; }
-        //public virtual TestViewModel? Test { get; set; }
-        public Guid QuestionId { get; set; }
-        public virtual QuestionViewModel? QuestionViewModel { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+    //public class QuestionForTestViewModel
+    //{
+    //    public Guid QuestionForTestId { get; set; }
+    //    public Guid TestId { get; set; }
+    //    //public virtual TestViewModel? Test { get; set; }
+    //    public Guid QuestionId { get; set; }
+    //    public virtual QuestionViewModel? QuestionViewModel { get; set; }
+    //    public bool IsDeleted { get; set; }
+    //}
     public class QuestionViewModel
     {
         public Guid QuestionId { get; set; }
+        public Guid TestId { get; set; }
         public int QuestionNo { get; set; }
         public string? QuestionDetail { get; set; }
         public virtual ICollection<AnswerViewModel> AnswerViewModels { get; set; } = new List<AnswerViewModel>();

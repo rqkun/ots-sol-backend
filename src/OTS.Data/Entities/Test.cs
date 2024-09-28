@@ -24,7 +24,8 @@ namespace OTS.Data.Entities
 
         public bool IsDeleted { get; set; }
 
-        public virtual ICollection<QuestionForTest> QuestionForTests { get; set; } = new List<QuestionForTest>();
+        // public virtual ICollection<QuestionForTest> QuestionForTests { get; set; } = new List<QuestionForTest>();
+        public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
         public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
     }
 
@@ -34,34 +35,40 @@ namespace OTS.Data.Entities
         [Key]
         public Guid QuestionId { get; set; }
 
+        [Required]
+        [ForeignKey("TestId")]
+        public Guid TestId { get; set; }
+
+        public virtual Test? Test { get; set; }
+
         public int QuestionNo { get; set; }
 
         public string? Detail { get; set; }
         
         public bool IsDeleted { get; set; }
 
-        public virtual ICollection<QuestionForTest> QuestionForTests { get; set; } = new List<QuestionForTest>();
+        // public virtual ICollection<QuestionForTest> QuestionForTests { get; set; } = new List<QuestionForTest>();
         public virtual ICollection<Answer> Answers { get; set; } = new List<Answer>();
     }
 
-    [Table("QuestionForTest")]
-    public class QuestionForTest
-    {
-        [Key]
-        public Guid QuestionForTestId { get; set; }
+    //[Table("QuestionForTest")]
+    //public class QuestionForTest
+    //{
+    //    [Key]
+    //    public Guid QuestionForTestId { get; set; }
 
-        [Required]
-        public Guid TestId { get; set; }
-        [ForeignKey("TestId")]
-        public virtual Test? Test { get; set; }
+    //    [Required]
+    //    public Guid TestId { get; set; }
+    //    [ForeignKey("TestId")]
+    //    public virtual Test? Test { get; set; }
 
-        [Required]
-        public Guid QuestionId { get; set; }
-        [ForeignKey("QuestionId")]
-        public virtual Question? Question { get; set; }
+    //    [Required]
+    //    public Guid QuestionId { get; set; }
+    //    [ForeignKey("QuestionId")]
+    //    public virtual Question? Question { get; set; }
 
-        public bool IsDeleted { get; set; }
-    }
+    //    public bool IsDeleted { get; set; }
+    //}
 
     [Table("Answer")]
     public class Answer

@@ -32,7 +32,7 @@ namespace OTS.Data.Repositories
         public async Task<TestViewModel> Get(Guid request)
         {
             var foundTest = await Entities
-                .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers) 
+                .Include(t => t.Questions).ThenInclude(q => q.Answers)
                 .FirstOrDefaultAsync(t => t.TestId == request) ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
@@ -52,7 +52,7 @@ namespace OTS.Data.Repositories
             filter.Page = filter.Page != 0 ? filter.Page : 1;
             filter.Limit = filter.Limit != 0 ? filter.Limit : 10;
             var foundTests = await Entities
-                .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers)
+                .Include(t => t.Questions).ThenInclude(q => q.Answers)
                 .Where(t => t.IsDeleted == false && t.TestCode.Contains(filter.Key)).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try
@@ -86,7 +86,7 @@ namespace OTS.Data.Repositories
             filter.Page = filter.Page != 0 ? filter.Page : 1;
             filter.Limit = filter.Limit != 0 ? filter.Limit : 10;
             var foundTests = await Entities
-                .Include(q => q.QuestionForTests).ThenInclude(qft => qft.Question).ThenInclude(q => q.Answers)
+                .Include(t => t.Questions).ThenInclude(q => q.Answers)
                 .Where(t => t.IsDeleted == filter.IsDeleted && t.Title.Contains(filter.Key)).ToListAsync() ??
                 throw new KeyNotFoundException(ErrorMessages.KeyNotFoundMessage.TestNotFound);
             try

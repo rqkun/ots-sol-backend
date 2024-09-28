@@ -37,12 +37,12 @@ namespace OTS.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("[action]")]
-        public async Task<IActionResult> AddToTest(QuestionForTestCreateModel request)
-        {
-            var result = await _questionService.AddToTest(request);
-            return Ok(result);
-        }
+        //[HttpPost("[action]")]
+        //public async Task<IActionResult> AddToTest(QuestionForTestCreateModel request)
+        //{
+        //    var result = await _questionService.AddToTest(request);
+        //    return Ok(result);
+        //}
 
         [HttpPut("[action]")]
         public async Task<IActionResult> Update(QuestionUpdateModel request)
@@ -58,11 +58,11 @@ namespace OTS.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("[action]")]
-        public async Task<IActionResult> DeleteFromTest(QuestionForTestModel request)
-        {
-            var result = await _questionService.DeleteFromTest(request);
-            return Ok(result);
-        }
+        //[HttpDelete("[action]")]
+        //public async Task<IActionResult> DeleteFromTest(QuestionForTestModel request)
+        //{
+        //    var result = await _questionService.DeleteFromTest(request);
+        //    return Ok(result);
+        //}
     }
 }

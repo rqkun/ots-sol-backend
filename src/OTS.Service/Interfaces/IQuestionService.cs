@@ -15,7 +15,7 @@ namespace OTS.Service.Interfaces
         Task<bool> Create(QuestionCreateModel request);
         Task<bool> Update(QuestionUpdateModel request);
         Task<bool> Delete(QuestionModel request);
-        Task<bool> AddToTest(QuestionForTestCreateModel request);
-        Task<bool> DeleteFromTest(QuestionForTestModel request);
+        //Task<bool> AddToTest(QuestionForTestCreateModel request);
+        //Task<bool> DeleteFromTest(QuestionForTestModel request);
     }
 }

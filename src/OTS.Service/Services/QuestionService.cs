@@ -10,12 +10,12 @@ namespace OTS.Service.Services
     public class QuestionService : IQuestionService
     {
         private readonly IQuestionRepository _questionRepository;
-        private readonly IQuestionForTestRepository _questionForTestRepository;
+        // private readonly IQuestionForTestRepository _questionForTestRepository;
         private readonly ITestRepository _testRepository;
-        public QuestionService(IQuestionRepository questionRepository, IQuestionForTestRepository questionForTestRepository, ITestRepository testRepository)
+        public QuestionService(IQuestionRepository questionRepository/*, IQuestionForTestRepository questionForTestRepository*/, ITestRepository testRepository)
         {
             _questionRepository = questionRepository;
-            _questionForTestRepository = questionForTestRepository;
+            // _questionForTestRepository = questionForTestRepository;
             _testRepository = testRepository;
         }
 
@@ -46,26 +46,26 @@ namespace OTS.Service.Services
 
         public async Task<bool> Delete(QuestionModel request)
         {
-            _ = await _questionForTestRepository.Get(request.QuestionId);
+            // _ = await _questionForTestRepository.Get(request.QuestionId);
             await _questionRepository.DeleteQuestion(request);
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> AddToTest(QuestionForTestCreateModel request)
-        {
-            _ = await _testRepository.Get(request.TestId);
-            _ = await _questionRepository.Get(request.QuestionId);
-            await _questionForTestRepository.CreateQFT(request);
-            return await Task.FromResult(true);
-        }
+        //public async Task<bool> AddToTest(QuestionForTestCreateModel request)
+        //{
+        //    _ = await _testRepository.Get(request.TestId);
+        //    _ = await _questionRepository.Get(request.QuestionId);
+        //    await _questionForTestRepository.CreateQFT(request);
+        //    return await Task.FromResult(true);
+        //}
 
-        public async Task<bool> DeleteFromTest(QuestionForTestModel request)
-        {
-            _ = await _testRepository.Get(request.TestId);
-            _ = await _questionRepository.Get(request.QuestionId);
-            var foundQFT = await _questionForTestRepository.Get(request.QuestionId, request.TestId);
-            await _questionForTestRepository.DeleteQFT(foundQFT);
-            return await Task.FromResult(true);
-        }
+        //public async Task<bool> DeleteFromTest(QuestionForTestModel request)
+        //{
+        //    _ = await _testRepository.Get(request.TestId);
+        //    _ = await _questionRepository.Get(request.QuestionId);
+        //    var foundQFT = await _questionForTestRepository.Get(request.QuestionId, request.TestId);
+        //    await _questionForTestRepository.DeleteQFT(foundQFT);
+        //    return await Task.FromResult(true);
+        //}
     }
 }

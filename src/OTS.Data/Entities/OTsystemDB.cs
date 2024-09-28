@@ -23,7 +23,7 @@ namespace OTS.Data.Entities
         public DbSet<Test> Tests { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Question> Questions { get; set; }
-        public DbSet<QuestionForTest> QuestionForTests { get; set; }
+        // public DbSet<QuestionForTest> QuestionForTests { get; set; }
         #endregion
 
         #region Submit Dbsets
@@ -109,9 +109,9 @@ namespace OTS.Data.Entities
             modelBuilder.Entity<Question>()
             .Property(b => b.QuestionId)
             .HasDefaultValueSql("NEWID()");
-            modelBuilder.Entity<QuestionForTest>()
-            .Property(b => b.QuestionForTestId)
-            .HasDefaultValueSql("NEWID()");
+            //modelBuilder.Entity<QuestionForTest>()
+            //.Property(b => b.QuestionForTestId)
+            //.HasDefaultValueSql("NEWID()");
             modelBuilder.Entity<Answer>()
             .Property(b => b.AnswerId)
             .HasDefaultValueSql("NEWID()");
@@ -139,9 +139,9 @@ namespace OTS.Data.Entities
             modelBuilder.Entity<Question>()
             .Property(c => c.IsDeleted)
             .HasDefaultValue(false);
-            modelBuilder.Entity<QuestionForTest>()
-            .Property(e => e.IsDeleted)
-            .HasDefaultValue(false);
+            //modelBuilder.Entity<QuestionForTest>()
+            //.Property(e => e.IsDeleted)
+            //.HasDefaultValue(false);
             modelBuilder.Entity<Answer>()
             .Property(i => i.IsDeleted)
             .HasDefaultValue(false);

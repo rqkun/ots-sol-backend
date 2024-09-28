@@ -35,8 +35,8 @@ namespace OTS.Data
                     option => option.MapFrom(source => source.EndDate))
                 .ForMember(destination => destination.TestCode,
                     option => option.MapFrom(source => source.TestCode))
-                .ForMember(destination => destination.QuestionForTestViewModels,
-                    option => option.MapFrom(source => source.QuestionForTests));
+                .ForMember(destination => destination.Questions,
+                    option => option.MapFrom(source => source.Questions));
             #endregion
 
 
@@ -54,7 +54,7 @@ namespace OTS.Data
                     option => option.MapFrom(source => source.IsCorrect));
             #endregion
 
-
+            /*
             #region QuestionForTest
             CreateMap<QuestionForTestCreateModel, QuestionForTest>();
             CreateMap<QuestionForTestModel, QuestionForTest>();
@@ -71,7 +71,7 @@ namespace OTS.Data
                 .ForMember(destination => destination.QuestionViewModel,
                     option => option.MapFrom(source => source.Question));
             #endregion
-
+            */
 
             #region Question
             CreateMap<QuestionCreateModel, Question>();
@@ -81,6 +81,8 @@ namespace OTS.Data
             CreateMap<Question,  QuestionViewModel>()
                 .ForMember(destination => destination.QuestionId,
                     option => option.MapFrom(source => source.QuestionId))
+                .ForMember(destination => destination.TestId,
+                    option => option.MapFrom(source => source.TestId))
                 .ForMember(destination => destination.QuestionNo,
                     option => option.MapFrom(source => source.QuestionNo))
                 .ForMember(destination => destination.QuestionDetail,

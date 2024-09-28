@@ -19,7 +19,7 @@ namespace OTS.Data
             service.AddTransient<ITestRepository, TestRepository>();
             service.AddTransient<IReportRepository, ReportRepository>();
             service.AddTransient<IAnswerRepository, AnswerRepository>();
-            service.AddTransient<IQuestionForTestRepository, QuestionForTestRepository>();
+            // service.AddTransient<IQuestionForTestRepository, QuestionForTestRepository>();
             service.AddTransient<IQuestionRepository, QuestionRepository>();
             service.AddTransient<IRoleRepository, RoleRepository>();
 
