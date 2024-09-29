@@ -14,10 +14,12 @@ namespace OTS.API.Controllers
     {
         private readonly ITokenService _tokenService;
         private readonly IUserService _userService;
-        public UserController(IUserService userService, ITokenService tokenService)
+        private readonly IEmailService _emailService;
+        public UserController(IUserService userService, ITokenService tokenService, IEmailService emailService)
         {
             this._userService = userService;
             this._tokenService = tokenService;
+            this._emailService = emailService;
         }
 
         [HttpPost]
@@ -30,6 +32,7 @@ namespace OTS.API.Controllers
             IdentityResult result = await _userService.Register(request);
             if (result.Succeeded)
             {
+
                 return Ok(
                     new TokenModel
                     {

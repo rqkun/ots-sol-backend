@@ -164,9 +164,9 @@ namespace OTS.Data.Repositories
             
         }
 
-        public async Task<string> GetOTP(UserModel model)
+        public async Task<string> GetOTP(string email)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email) ?? throw new LoginException(LoginMessage.InvalidCredentials);
+            var user = await _userManager.FindByEmailAsync(email) ?? throw new LoginException(LoginMessage.InvalidCredentials);
             var otp = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
             return await Task.FromResult(otp);
         }

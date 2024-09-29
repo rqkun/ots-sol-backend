@@ -20,6 +20,7 @@ namespace OTS.Service
             service.AddTransient<IQuestionService, QuestionService>();
             service.AddTransient<IRoleService, RoleService>();
             service.AddTransient<ITokenService, TokenService>();
+            service.AddTransient<IEmailService, EmailService>();
             return service;
         }
     }

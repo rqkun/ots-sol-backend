@@ -58,10 +58,9 @@ namespace OTS.Service.Services
             return await _userRepository.UpdateAvatar(email,seed);
         }
 
-        public async Task<bool> GetOTP(UserModel user)
+        public async Task<string> GetOTP(string email)
         {
-            var otp= await _userRepository.GetOTP(user);
-            return await Task.FromResult(true);
+            return await _userRepository.GetOTP(email);
         }
     }
 }
