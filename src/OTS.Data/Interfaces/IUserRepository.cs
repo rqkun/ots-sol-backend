@@ -15,10 +15,12 @@ namespace OTS.Data.Interfaces
         Task<UserModel> Get(Guid request);
         Task<UserModel> Get(string request);
         Task<List<UserModel>> GetAll(FilterModel filter);
-        Task<bool> ChangePassword(ChangePasswordModel model);
-        Task<bool> ResetPassword(ResetPasswordModel model);
         Task<IdentityResult> Delete(Guid id);
         Task<bool> UpdateAvatar(string email, string seed);
-        Task<string> GetOTP(string email);
+        Task<string> GetVerifyToken(string email);
+        Task<IdentityResult> VerifyGmail(string email, string token);
+        Task<string> GetPasswordResetToken(string email);
+        Task<IdentityResult> ResetPassword(string email, string token, string newPassword);
+        Task<bool> ChangePassword(ChangePasswordModel model);
     }
 }

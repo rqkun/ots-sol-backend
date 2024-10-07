@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using OTS.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace OTS.Service.Interfaces
 {
     public interface IEmailService
     {
-        void SendEmail(MessageModel message);
+        Task<bool> SendEmail(MessageModel message);
     }
 }

@@ -17,6 +17,10 @@ namespace OTS.Service.Interfaces
         Task<List<UserModel>> GetAll(FilterModel filter);
         Task<bool> UpdateAvatar(string email, string seed);
         Task<IdentityResult> Delete(Guid guid);
-        Task<string> GetOTP(string email);
+        Task<string> GetVerifyToken(string email);
+        Task<IdentityResult> VerifyGmail(string email, string token);
+        Task<string> GetPasswordResetToken(string email);
+        Task<IdentityResult> ResetPassword(string email, string token, string newPassword);
+        Task<bool> ChangePassword(ChangePasswordModel model);
     }
 }

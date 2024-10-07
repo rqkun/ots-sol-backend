@@ -19,7 +19,7 @@ namespace OTS.Service.Services
         private readonly IRoleRepository _roleRepository;
         private readonly IMapper _mapper;
         public UserService(IUserRepository userRepository, IMapper mapper, IRoleRepository roleRepository)
-        { 
+        {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
             _mapper = mapper;
@@ -55,12 +55,28 @@ namespace OTS.Service.Services
 
         public async Task<bool> UpdateAvatar(string email, string seed)
         {
-            return await _userRepository.UpdateAvatar(email,seed);
+            return await _userRepository.UpdateAvatar(email, seed);
         }
 
-        public async Task<string> GetOTP(string email)
+        public async Task<string> GetVerifyToken(string email)
         {
-            return await _userRepository.GetOTP(email);
+            return await _userRepository.GetVerifyToken(email);
+        }
+        public async Task<IdentityResult> VerifyGmail(string email, string token)
+        {
+            return await _userRepository.VerifyGmail(email, token);
+        }
+        public async Task<string> GetPasswordResetToken(string email)
+        {
+            return await _userRepository.GetPasswordResetToken(email);
+        }
+        public async Task<IdentityResult> ResetPassword(string email, string token, string newPassword)
+        {
+            return await _userRepository.ResetPassword(email, token, newPassword);
+        }
+        public async Task<bool> ChangePassword(ChangePasswordModel model)
+        {
+            return await _userRepository.ChangePassword(model);
         }
     }
 }

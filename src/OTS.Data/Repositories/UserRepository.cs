@@ -1,25 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Printing;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using Azure.Core;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using OTS.Common;
 using OTS.Common.ErrorHandle;
 using OTS.Data.Entities;
 using OTS.Data.Interfaces;
 using OTS.Data.Models;
-using OTS.Data.ViewModels;
 using static OTS.Common.ErrorHandle.ErrorMessages;
-
 namespace OTS.Data.Repositories
 {
     public class UserRepository : Repository<User>, IUserRepository
@@ -78,40 +63,6 @@ namespace OTS.Data.Repositories
             }
             return await Task.FromResult(modelList);
         }
-        public async Task<bool> ChangePassword(ChangePasswordModel model)
-        {
-            
-            var foundUser = await _userManager.FindByEmailAsync(model.Email) ??
-                 throw new KeyNotFoundException(KeyNotFoundMessage.UserNotFound);
-            try
-            {
-                await _userManager.ChangePasswordAsync(foundUser, model.OldPassword, model.NewPassword);
-                return await Task.FromResult(true);
-            }
-            catch (Exception ex)
-            {
-                // Handle or log the exception as needed
-                throw new Exception(ex.Message); // Return error message
-            }
-            
-        }
-        public async Task<bool> ResetPassword(ResetPasswordModel model)
-        {
-
-            var foundUser = await _userManager.FindByEmailAsync(model.Email) ??
-                 throw new KeyNotFoundException(KeyNotFoundMessage.UserNotFound);
-            try
-            {
-                await _userManager.ResetPasswordAsync(foundUser,model.Token,model.NewPassword);
-                return await Task.FromResult(true);
-            }
-            catch (Exception ex)
-            {
-                // Handle or log the exception as needed
-                throw new Exception(ex.Message); // Return error message
-            }
-
-        }
 
         public async Task<IdentityResult> Delete(Guid id)
         {
@@ -164,11 +115,37 @@ namespace OTS.Data.Repositories
             
         }
 
-        public async Task<string> GetOTP(string email)
+        public async Task<string> GetVerifyToken(string email)
         {
             var user = await _userManager.FindByEmailAsync(email) ?? throw new LoginException(LoginMessage.InvalidCredentials);
-            var otp = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
-            return await Task.FromResult(otp);
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            return await Task.FromResult(token);
+        }
+
+        public async Task<IdentityResult> VerifyGmail(string email, string token)
+        {
+            var user = await _userManager.FindByEmailAsync(email) ?? throw new LoginException(LoginMessage.InvalidCredentials);
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            return await Task.FromResult(result);
+        }
+
+        public async Task<string> GetPasswordResetToken(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email) ?? throw new KeyNotFoundException(KeyNotFoundMessage.UserNotFound);
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return await Task.FromResult(token);
+        }
+        public async Task<IdentityResult> ResetPassword(string email, string token, string newPassword)
+        {
+            var user = await _userManager.FindByEmailAsync(email) ?? throw new KeyNotFoundException(KeyNotFoundMessage.UserNotFound);
+            var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
+            return await Task.FromResult(result);
+        }
+        public async Task<bool> ChangePassword(ChangePasswordModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email) ?? throw new KeyNotFoundException(KeyNotFoundMessage.UserNotFound);
+            var result = await _userManager.CheckPasswordAsync(user, model.NewPassword);
+            return await Task.FromResult(result);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using OTS.Data.Models;
 using OTS.Service.Interfaces;
@@ -15,9 +16,11 @@ namespace OTS.Service.Services
             this._emailModel = emailModel;
         }
 
-        public void SendEmail(MessageModel message)
+        public async Task <bool> SendEmail(MessageModel message)
         {
-            throw new NotImplementedException();
+            var emailMessage = CreateEmailMessage(message);
+            return await Send(emailMessage);
+
         }
 
         private MimeMessage CreateEmailMessage(MessageModel message)
@@ -31,7 +34,7 @@ namespace OTS.Service.Services
             return emailMessage;
         }
 
-        private void Send(MimeMessage mailMessage)
+        private Task<bool> Send(MimeMessage mailMessage)
         {
             using var client = new SmtpClient();
             try
@@ -41,6 +44,7 @@ namespace OTS.Service.Services
                 client.Authenticate(_emailModel.UserName, _emailModel.Password);
 
                 client.Send(mailMessage);
+                return Task.FromResult(true);
             }
             catch(Exception e)
             {
